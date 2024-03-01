@@ -64,5 +64,5 @@ module.exports = {
     tailwindcss: {
       callees: ["clsx", "cx", "cva", "twMerge"],
     },
-  }
+  },
 };
