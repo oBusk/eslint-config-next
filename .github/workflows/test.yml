@@ -32,7 +32,10 @@ jobs:
 
       - working-directory: test
         name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - working-directory: test
+        run: npm ls
 
       - working-directory: test
         name: Run linting inside test
