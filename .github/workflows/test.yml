@@ -26,16 +26,11 @@ jobs:
           cache: npm
           cache-dependency-path: "*/package-lock.json"
 
-      - working-directory: test
-        name: Overwirte to use local config package
-        run: npm install ../config --package-lock-only
+      - working-directory: config
+        run: npm link
 
       - working-directory: test
-        name: Install dependencies
-        run: npm ci
-
-      - working-directory: test
-        run: npm ls
+        run: npm link @obusk/eslint-config-next
 
       - working-directory: test
         name: Run linting inside test
