@@ -64,5 +64,10 @@ module.exports = {
     tailwindcss: {
       callees: ["clsx", "cx", "cva", "twMerge"],
     },
+    jest: {
+      // Trick to resolve jest from where executed (not from this project's node_modules)
+      version: require(process.cwd() + "/node_modules/jest/package.json")
+        .version,
+    },
   },
 };
