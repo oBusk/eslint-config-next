@@ -24,6 +24,7 @@ jobs:
         with:
           node-version-file: ./test/package.json
           cache: npm
+          cache-dependency-path: "*/package-lock.json"
 
       - working-directory: test
         name: Overwirte to use local config package
