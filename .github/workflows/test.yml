@@ -17,13 +17,13 @@ jobs:
       - name: Checkout test repository
         uses: actions/checkout@v4
         with:
-          repository: "oBusk/npm-diff.app"
+          repository: oBusk/npm-diff.app
           path: test
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: test/package.json
-          cache: "npm"
+          node-version-file: ./test/package.json
+          cache: npm
 
       - working-directory: test
         name: Overwirte to use local config package
