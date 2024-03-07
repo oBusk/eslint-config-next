@@ -32,8 +32,8 @@ jobs:
 
       - working-directory: test
         name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - working-directory: test
         name: Run linting inside test
-        run: npx next lint
+        run: ./node_modules/.bin/next lint
