@@ -1,0 +1,31 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CI: true
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+        with:
+          path: config
+      - name: Checkout test repository
+        uses: actions/checkout@v4
+        with:
+          repository: "oBusk/npm-diff.app"
+          path: test
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: config/package.json
+      - name: Overwirte to use local config package
+        run: npm install ../config --package-lock-only
+        working-directory: test
+      - name: Install dependencies
+        run: npm ci
+      - name: Run linting inside test
+        run: npx next lint
+        working-directory: test
