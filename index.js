@@ -66,8 +66,7 @@ module.exports = {
     },
     jest: {
       // Trick to resolve jest from where executed (not from this project's node_modules)
-      version: require(process.cwd() + "/node_modules/jest/package.json")
-        .version,
+      version: require("jest/package.json").version,
     },
   },
 };
