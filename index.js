@@ -7,6 +7,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:tailwindcss/recommended",
+    "plugin:jsdoc/recommended-typescript-error",
     "plugin:prettier/recommended",
   ],
   plugins: ["jest", "testing-library", "@typescript-eslint/eslint-plugin"],
@@ -18,6 +19,10 @@ module.exports = {
         disallowTypeAnnotations: true,
         fixStyle: "inline-type-imports",
       },
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { argsIgnorePattern: "^_", ignoreRestSiblings: true },
     ],
     "import/order": [
       "error",
@@ -43,12 +48,18 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
+    "jsdoc/no-undefined-types": 1,
+    "jsdoc/require-jsdoc": 0,
+    "jsdoc/require-param": 0,
+    "jsdoc/require-returns": 0,
+    "jsdoc/require-yields": 0,
+    "jsdoc/tag-lines": ["error", "any", { startLines: 1, endLines: 0 }],
+    "react/jsx-no-leaked-render": "error",
     // Sort imports to sort import members
     "sort-imports": [
       "error",
       { ignoreCase: true, ignoreDeclarationSort: true },
     ],
-    "react/jsx-no-leaked-render": "error",
   },
   overrides: [
     {
