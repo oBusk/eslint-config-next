@@ -7,7 +7,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:tailwindcss/recommended",
-    "plugin:jsdoc/recommended-typescript-error",
+    "plugin:jsdoc/recommended-typescript-flavor-error",
     "plugin:prettier/recommended",
   ],
   plugins: ["jest", "testing-library", "@typescript-eslint/eslint-plugin"],
@@ -48,12 +48,6 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
-    "jsdoc/no-undefined-types": 1,
-    "jsdoc/require-jsdoc": 0,
-    "jsdoc/require-param": 0,
-    "jsdoc/require-returns": 0,
-    "jsdoc/require-yields": 0,
-    "jsdoc/tag-lines": ["error", "any", { startLines: 1, endLines: 0 }],
     "react/jsx-no-leaked-render": "error",
     // Sort imports to sort import members
     "sort-imports": [
@@ -69,6 +63,18 @@ module.exports = {
         "plugin:jest/style",
         "plugin:testing-library/react",
       ],
+    },
+    {
+      files: ["**/*.ts?(x)"],
+      extends: ["plugin:jsdoc/recommended-typescript-error"],
+      rules: {
+        "jsdoc/no-undefined-types": 1,
+        "jsdoc/require-jsdoc": 0,
+        "jsdoc/require-param": 0,
+        "jsdoc/require-returns": 0,
+        "jsdoc/require-yields": 0,
+        "jsdoc/tag-lines": ["error", "any", { startLines: 1, endLines: 0 }],
+      },
     },
   ],
   settings: {
