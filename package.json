@@ -51,7 +51,7 @@
     "eslint": ">=8.57.0",
     "jest": "*",
     "next": ">=14.1.0",
-    "typescript": "~5.3.3"
+    "typescript": ">=5.4.3"
   },
   "devDependencies": {
     "lint-staged": "^15.2.2",
