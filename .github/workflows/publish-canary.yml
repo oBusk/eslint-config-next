@@ -1,0 +1,36 @@
+name: Publish canary
+on:
+  push:
+    branches:
+      - main
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          registry-url: "https://registry.npmjs.org"
+      - run: npm install -g npm
+      - run: npm ci
+      - name: Get previous canary version
+        id: previous-version
+        run: echo "::set-output name=version::$(npm show your-package-name version --tag canary)"
+      - name: Increment canary version
+        id: increment-version
+        run: |
+          previous_version=${{ steps.previous-version.outputs.version }}
+          IFS='.' read -ra version_parts <<< "$previous_version"
+          patch=${version_parts[2]}
+          patch=$((patch+1))
+          new_version="${version_parts[0]}.${version_parts[1]}.$patch-canary"
+          echo "::set-output name=new_version::$new_version"
+      - name: Set new version
+        run: npm version ${{ steps.increment-version.outputs.new_version }} --no-git-tag-version
+      - run: npm publish --provenance --tag canary --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

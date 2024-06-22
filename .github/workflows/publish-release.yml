@@ -1,11 +1,11 @@
-name: Publish tag
+name: Publish release
 on:
   push:
     tags:
       - "v*.*.*"
 jobs:
   publish:
-    name: "Publish"
+    name: "Publish release"
     runs-on: ubuntu-latest
     permissions:
       contents: read
