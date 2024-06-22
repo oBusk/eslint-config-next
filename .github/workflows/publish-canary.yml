@@ -24,10 +24,12 @@ jobs:
         id: increment-version
         run: |
           previous_version=${{ steps.previous-version.outputs.version }}
-          IFS='.' read -ra version_parts <<< "$previous_version"
-          patch=${version_parts[2]}
-          patch=$((patch+1))
-          new_version="${version_parts[0]}.${version_parts[1]}.$patch-canary"
+          # Extract the base version and the canary identifier
+          base_version=$(echo $previous_version | cut -d'-' -f 1)
+          canary_identifier=$(echo $previous_version | cut -d'.' -f 4)
+          canary_identifier=$((canary_identifier + 1))
+          new_version="${base_version}-canary.${canary_identifier}"
+          echo "New version: $new_version"
           echo "::set-output name=new_version::$new_version"
       - name: Set new version
         run: npm version ${{ steps.increment-version.outputs.new_version }} --no-git-tag-version
