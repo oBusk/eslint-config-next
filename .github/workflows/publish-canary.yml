@@ -19,18 +19,22 @@ jobs:
       - run: npm ci
       - name: Get previous canary version
         id: previous-version
-        run: echo "::set-output name=version::$(npm show @obusk/eslint-config-next version --tag canary)"
+        run: |
+          echo "::set-output name=releaseVersion::$(npm show @obusk/eslint-config-next version)"
+          echo "::set-output name=version::$(npm show @obusk/eslint-config-next version --tag canary)"
       - name: Increment canary version
         id: increment-version
         run: |
+          release_version=${{ steps.previous-version.outputs.releaseVersion }}
           previous_version=${{ steps.previous-version.outputs.version }}
-          # Extract the base version and the canary identifier
-          base_version=$(echo $previous_version | cut -d'-' -f 1)
-          canary_identifier=$(echo $previous_version | cut -d'.' -f 4)
-          canary_identifier=$((canary_identifier + 1))
-          new_version="${base_version}-canary.${canary_identifier}"
-          echo "New version: $new_version"
-          echo "::set-output name=new_version::$new_version"
+          # check if release_version is higher than previous_version using semver
+          if [ "$(npx semver $release_version -r $previous_version)" = "$release_version" ]; then
+            echo "Release version is higher than previous canary version"
+            new_version=$release_version
+          else
+            echo "Release version is not higher than previous canary version"
+            new_version=$(npx semver $previous_version -i prerelease --preid canary)
+          fi
       - name: Set new version
         run: npm version ${{ steps.increment-version.outputs.new_version }} --no-git-tag-version
       - run: npm publish --provenance --tag canary --access public
