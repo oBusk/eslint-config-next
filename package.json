@@ -36,12 +36,12 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "~7.0.0",
-    "eslint-config-next": "^14.2.7",
+    "@typescript-eslint/eslint-plugin": "7.0.0 - 7.2.0",
+    "@typescript-eslint/parser": "7.0.0 - 7.2.0",
+    "eslint-config-next": "^14.2.8",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.30.0",
-    "eslint-plugin-jest": "^28.8.2",
+    "eslint-plugin-jest": "^28.8.3",
     "eslint-plugin-jsdoc": "^50.2.2",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
@@ -50,8 +50,8 @@
   "peerDependencies": {
     "eslint": "^8.57.0",
     "jest": "*",
-    "next": ">=14.1.0",
-    "typescript": "~5.4.3"
+    "next": ">=14.2.0",
+    "typescript": "~5.4.0"
   },
   "devDependencies": {
     "lint-staged": "^15.2.10",
