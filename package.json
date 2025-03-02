@@ -14,7 +14,7 @@
   "author": "Oscar Busk <oscar.busk@gmail.com>",
   "license": "ISC",
   "repository": {
-    "url": "oBusk/eslint-config-next"
+    "url": "git+https://github.com/oBusk/eslint-config-next.git"
   },
   "homepage": "https://github.com/oBusk/eslint-config-next#readme",
   "engines": {
