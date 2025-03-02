@@ -15,7 +15,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: package.json
-          registry-url: "https://registry.npmjs.org"
           cache: "npm"
       - name: Install latest npm
         run: npm install -g npm
@@ -33,6 +32,6 @@ jobs:
             echo "TAG=latest" >> $GITHUB_OUTPUT
           fi
       - name: Publish package
-        run: npm publish --provenance --access public --tag ${{ steps.dist-tag.outputs.TAG }}
+        run: npm publish --provenance --tag ${{ steps.dist-tag.outputs.TAG }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
