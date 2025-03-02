@@ -7,8 +7,8 @@ const eslintConfig = [
   ...compat.config({
     root: true,
     extends: [
-      "next",
       "next/core-web-vitals",
+      "next/typescript",
       "plugin:import/recommended",
       "plugin:import/typescript",
       "plugin:tailwindcss/recommended",
