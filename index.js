@@ -1,8 +1,15 @@
 import { FlatCompat } from "@eslint/eslintrc";
-import { getJestVersion } from "./utils.js";
+import jest from "eslint-plugin-jest";
+import jsdoc from "eslint-plugin-jsdoc";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import tailwind from "eslint-plugin-tailwindcss";
+import testingLibrary from "eslint-plugin-testing-library";
 
 const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
+/**
+ * @type {import("eslint").Linter.Config[]}
+ */
 const eslintConfig = [
   ...compat.config({
     root: true,
@@ -11,11 +18,8 @@ const eslintConfig = [
       "next/typescript",
       "plugin:import/recommended",
       "plugin:import/typescript",
-      "plugin:tailwindcss/recommended",
-      "plugin:jsdoc/recommended-typescript-flavor-error",
-      "plugin:prettier/recommended",
     ],
-    plugins: ["jest", "testing-library", "@typescript-eslint/eslint-plugin"],
+    plugins: ["testing-library", "@typescript-eslint/eslint-plugin"],
     rules: {
       "@typescript-eslint/consistent-type-imports": [
         "error",
@@ -52,36 +56,52 @@ const eslintConfig = [
         { ignoreCase: true, ignoreDeclarationSort: true },
       ],
     },
-    overrides: [
-      {
-        files: [
-          "**/__tests__/**/*.[jt]s?(x)",
-          "**/?(*.)+(spec|test).[jt]s?(x)",
-        ],
-        extends: [
-          "plugin:jest/recommended",
-          "plugin:jest/style",
-          "plugin:testing-library/react",
-        ],
-      },
-      {
-        files: ["**/*.ts?(x)"],
-        extends: ["plugin:jsdoc/recommended-typescript-error"],
-        rules: {
-          "jsdoc/no-undefined-types": 1,
-          "jsdoc/require-jsdoc": 0,
-          "jsdoc/require-param": 0,
-          "jsdoc/require-returns": 0,
-          "jsdoc/require-yields": 0,
-          "jsdoc/tag-lines": ["error", "any", { startLines: 1, endLines: 0 }],
-        },
-      },
-    ],
+    // overrides: [
+    //   {
+    //     files: [
+    //       "**/__tests__/**/*.[jt]s?(x)",
+    //       "**/?(*.)+(spec|test).[jt]s?(x)",
+    //     ],
+    //     extends: [
+    //       "plugin:jest/recommended",
+    //       "plugin:jest/style",
+    //       "plugin:testing-library/react",
+    //     ],
+    //   },
+    // ],
+  }),
+
+  // Tailwind
+  ...tailwind.configs["flat/recommended"],
+  {
     settings: {
       tailwindcss: { callees: ["clsx", "cx", "cva", "twMerge"] },
-      jest: { version: getJestVersion() },
     },
-  }),
+  },
+
+  // JSDoc
+  jsdoc.configs["flat/recommended-typescript-flavor-error"],
+  {
+    files: ["**/*.ts?(x)"],
+    plugins: {
+      jsdoc,
+    },
+    rules: {
+      "jsdoc/require-jsdoc": 0,
+      "jsdoc/require-param": 0,
+      "jsdoc/require-returns": 0,
+      "jsdoc/require-yields": 0,
+      "jsdoc/tag-lines": ["error", "any", { startLines: 1, endLines: 0 }],
+    },
+  },
+
+  // Jest+Testing Library
+  jest.configs["flat/recommended"],
+  jest.configs["flat/style"],
+  testingLibrary.configs["flat/react"],
+
+  // Prettier
+  eslintPluginPrettierRecommended,
 ];
 
 export default eslintConfig;
