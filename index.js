@@ -29,6 +29,7 @@ const eslintConfig = [
           fixStyle: "inline-type-imports",
         },
       ],
+      "@typescript-eslint/no-empty-object-type": 0,
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", ignoreRestSiblings: true },
