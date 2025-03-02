@@ -10,7 +10,7 @@ npm install --save-dev @obusk/eslint-config-next
 
 ## Usage
 
-### ESLint Flat Config (recommended)
+### ESLint Flat Config
 
 This package exports a flat config by default. Add the following to your `eslint.config.js`:
 
@@ -18,14 +18,4 @@ This package exports a flat config by default. Add the following to your `eslint
 import obuskNext from "@obusk/eslint-config-next";
 
 export default [...obuskNext];
-```
-
-### Legacy Config
-
-Add the following to your `.eslintrc` file:
-
-```json
-{
-  "extends": "@obusk/next"
-}
 ```
