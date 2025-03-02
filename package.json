@@ -1,6 +1,7 @@
 {
   "name": "@obusk/eslint-config-next",
   "version": "15.0.0",
+  "type": "module",
   "description": "A strict configuration for using Next.js and Tailwind",
   "keywords": [
     "eslint",
@@ -17,10 +18,10 @@
   },
   "homepage": "https://github.com/oBusk/eslint-config-next#readme",
   "engines": {
-    "node": "20.X"
+    "node": "22.X"
   },
   "volta": {
-    "node": "20.18.0"
+    "node": "22.14.0"
   },
   "simple-git-hooks": {
     "pre-commit": "npm run lint-staged"
@@ -36,26 +37,27 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "eslint-config-next": "^15.0.1",
-    "eslint-config-prettier": "^9.1.0",
+    "@eslint/eslintrc": "^3.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint-config-next": "^15.2.0",
+    "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jest": "^28.8.3",
-    "eslint-plugin-jsdoc": "^50.4.3",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-tailwindcss": "^3.17.5",
-    "eslint-plugin-testing-library": "^6.4.0"
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-jsdoc": "^50.6.3",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "eslint-plugin-testing-library": "^7.1.1"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",
     "jest": "*",
     "next": ">=15.0.0",
-    "typescript": "~5.5.0"
+    "typescript": "~5.7.0"
   },
   "devDependencies": {
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.2",
     "simple-git-hooks": "^2.11.1"
   }
 }
