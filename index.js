@@ -56,19 +56,6 @@ const eslintConfig = [
         { ignoreCase: true, ignoreDeclarationSort: true },
       ],
     },
-    // overrides: [
-    //   {
-    //     files: [
-    //       "**/__tests__/**/*.[jt]s?(x)",
-    //       "**/?(*.)+(spec|test).[jt]s?(x)",
-    //     ],
-    //     extends: [
-    //       "plugin:jest/recommended",
-    //       "plugin:jest/style",
-    //       "plugin:testing-library/react",
-    //     ],
-    //   },
-    // ],
   }),
 
   // Tailwind
