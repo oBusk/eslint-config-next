@@ -10,7 +10,9 @@
     "tailwind"
   ],
   "main": "index.js",
-  "files": [],
+  "files": [
+    "utils.js"
+  ],
   "author": "Oscar Busk <oscar.busk@gmail.com>",
   "license": "ISC",
   "repository": {
