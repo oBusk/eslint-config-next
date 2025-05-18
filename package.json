@@ -24,7 +24,7 @@
     "node": "22.X"
   },
   "volta": {
-    "node": "22.14.0"
+    "node": "22.15.1"
   },
   "simple-git-hooks": {
     "pre-commit": "npm run lint-staged"
@@ -41,16 +41,16 @@
   },
   "dependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.29.1",
-    "@typescript-eslint/parser": "^8.29.1",
-    "eslint-config-next": "^15.3.0",
-    "eslint-config-prettier": "^10.1.2",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint-config-next": "^15.3.2",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.11.0",
-    "eslint-plugin-jsdoc": "^50.6.9",
-    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-jsdoc": "^50.6.17",
+    "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-tailwindcss": "^3.18.0",
-    "eslint-plugin-testing-library": "^7.1.1"
+    "eslint-plugin-testing-library": "^7.2.0"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",
@@ -61,8 +61,8 @@
     "typescript": "~5.8.0"
   },
   "devDependencies": {
-    "lint-staged": "^15.5.0",
+    "lint-staged": "^16.0.0",
     "prettier": "^3.5.3",
-    "simple-git-hooks": "^2.12.1"
+    "simple-git-hooks": "^2.13.0"
   }
 }
