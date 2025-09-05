@@ -59,6 +59,16 @@ const eslintConfig = [
     },
   }),
 
+  // Disable triple-slash reference rule for the auto-generated Next.js env file.
+  // next-env.d.ts is maintained by Next.js and can contain triple-slash references
+  // (e.g. to ./.next/types/routes.d.ts) that are not intended to be rewritten.
+  {
+    files: ["next-env.d.ts", "**/next-env.d.ts"],
+    rules: {
+      "@typescript-eslint/triple-slash-reference": "off",
+    },
+  },
+
   // Tailwind
   ...tailwind.configs["flat/recommended"],
   {
