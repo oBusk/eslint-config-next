@@ -5,22 +5,34 @@ import jsdoc from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
-import { fileURLToPath } from "node:url";
+import fs from "node:fs";
+import path from "node:path";
 
 const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
 /**
  * @type {import("eslint").Linter.Config[]}
  */
-// Include patterns from the local .gitignore so ESLint automatically ignores them.
-const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
-const gitignore = includeIgnoreFile(
-  gitignorePath,
-  "Imported .gitignore patterns",
-);
+// Find the consumer project's root (nearest directory containing a package.json)
+function findProjectRoot(start = process.cwd()) {
+  let dir = start;
+  while (true) {
+    if (fs.existsSync(path.join(dir, "package.json"))) return dir;
+    const parent = path.dirname(dir);
+    if (parent === dir) return start; // Fallback: give up at filesystem root
+    dir = parent;
+  }
+}
+
+const projectRoot = findProjectRoot();
+const gitignorePath = path.join(projectRoot, ".gitignore");
+// Only include if the consumer project actually has a .gitignore
+const gitignore = fs.existsSync(gitignorePath)
+  ? includeIgnoreFile(gitignorePath, "Project .gitignore patterns")
+  : null;
 
 const eslintConfig = [
-  gitignore,
+  ...(gitignore ? [gitignore] : []),
   ...compat.config({
     root: true,
     extends: [
