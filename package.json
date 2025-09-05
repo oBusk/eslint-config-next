@@ -1,6 +1,6 @@
 {
   "name": "@obusk/eslint-config-next",
-  "version": "15.4.0",
+  "version": "15.5.0",
   "type": "module",
   "description": "A strict configuration for using Next.js and Tailwind",
   "keywords": [
