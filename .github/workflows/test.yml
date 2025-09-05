@@ -10,12 +10,12 @@ jobs:
       CI: true
     steps:
       - name: Checkout this repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: config
 
       - name: Checkout test repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: oBusk/npm-diff.app
           path: test
