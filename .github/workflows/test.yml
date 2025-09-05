@@ -20,7 +20,7 @@ jobs:
           repository: oBusk/npm-diff.app
           path: test
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: ./test/package.json
           cache: npm
