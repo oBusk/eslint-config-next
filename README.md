@@ -19,3 +19,7 @@ import obuskNext from "@obusk/eslint-config-next";
 
 export default [...obuskNext];
 ```
+
+### Ignored Files
+
+This config automatically respects your project's `.gitignore` (via `includeIgnoreFile`) so files and folders you already ignore in Git (like `node_modules` or build outputs) are also ignored by ESLint without needing a separate ignore list.

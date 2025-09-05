@@ -1,16 +1,26 @@
+import { includeIgnoreFile } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import jest from "eslint-plugin-jest";
 import jsdoc from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
+import { fileURLToPath } from "node:url";
 
 const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
 /**
  * @type {import("eslint").Linter.Config[]}
  */
+// Include patterns from the local .gitignore so ESLint automatically ignores them.
+const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
+const gitignore = includeIgnoreFile(
+  gitignorePath,
+  "Imported .gitignore patterns",
+);
+
 const eslintConfig = [
+  gitignore,
   ...compat.config({
     root: true,
     extends: [
