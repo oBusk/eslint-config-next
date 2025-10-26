@@ -4,5 +4,5 @@
     "module": "node20",
     "types": ["node"]
   },
-  "include": ["index.js"]
+  "include": ["index.js", "index.d.ts"]
 }
