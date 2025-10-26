@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version-file: package.json
+          cache: "pnpm"
           registry-url: "https://registry.npmjs.org/"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -33,6 +34,6 @@ jobs:
             echo "TAG=latest" >> $GITHUB_OUTPUT
           fi
       - name: Publish package
-        run: pnpm publish --provenance --tag ${{ steps.dist-tag.outputs.TAG }} --no-git-checks
+        run: pnpm publish --provenance --tag ${{ steps.dist-tag.outputs.TAG }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
