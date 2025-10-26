@@ -23,9 +23,6 @@
   "engines": {
     "node": "22.X"
   },
-  "volta": {
-    "node": "22.19.0"
-  },
   "devEngines": {
     "runtime": {
       "name": "node",
