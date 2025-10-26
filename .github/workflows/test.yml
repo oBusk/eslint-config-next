@@ -20,21 +20,25 @@ jobs:
           repository: oBusk/npm-diff.app
           path: test
 
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: ./config/package.json
+
       - uses: actions/setup-node@v5
         with:
-          node-version-file: ./test/package.json
-          cache: npm
-          cache-dependency-path: "*/package-lock.json"
+          node-version-file: ./config/.nvmrc
+          cache: pnpm
+          cache-dependency-path: "*/pnpm-lock.yaml"
 
       - working-directory: config
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - working-directory: config
-        run: npm link
+        run: pnpm link
 
       - working-directory: test
-        run: npm link @obusk/eslint-config-next
+        run: pnpm link @obusk/eslint-config-next
 
       - working-directory: test
         name: Run linting inside test
-        run: ./node_modules/.bin/next lint
+        run: pnpm exec next lint
