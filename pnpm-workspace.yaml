@@ -1,3 +1,5 @@
+# Only allowed certain packages to run their install scripts
+# https://pnpm.io/supply-chain-security
 onlyBuiltDependencies:
   - simple-git-hooks
   - unrs-resolver
