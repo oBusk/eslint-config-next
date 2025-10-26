@@ -1,8 +1,13 @@
+# By default, perform all installs without updating the lockfile
+# https://pnpm.io/cli/install#--frozen-lockfile
+frozenLockfile: true
+
 # Only allowed certain packages to run their install scripts
 # https://pnpm.io/supply-chain-security
 onlyBuiltDependencies:
   - simple-git-hooks
   - unrs-resolver
+
 # Do not allow installation of any packages that was published
 # in the last 72 hours (4320 minutes)
 # https://pnpm.io/supply-chain-security
