@@ -47,7 +47,8 @@
   "scripts": {
     "prettier": "prettier **/*.{md,js,json,yml} --ignore-path .gitignore --check",
     "prettier-fix": "prettier **/*.{md,js,json,yml} --ignore-path .gitignore --write",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@eslint/compat": "^1.3.2",
@@ -72,8 +73,10 @@
     "typescript": "~5.9.0"
   },
   "devDependencies": {
+    "@types/node": "^22.18.12",
     "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
-    "simple-git-hooks": "^2.13.1"
+    "simple-git-hooks": "^2.13.1",
+    "typescript": "^5.9.3"
   }
 }
