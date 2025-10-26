@@ -26,7 +26,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version-file: ./config/package.json
+          node-version-file: ./config/.nvmrc
           cache: pnpm
           cache-dependency-path: "*/pnpm-lock.yaml"
 
