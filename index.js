@@ -10,9 +10,6 @@ import path from "node:path";
 
 const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
-/**
- * @type {import("eslint").Linter.Config[]}
- */
 // Find the consumer project's root (nearest directory containing a package.json)
 function findProjectRoot(start = process.cwd()) {
   let dir = start;
@@ -31,6 +28,9 @@ const gitignore = fs.existsSync(gitignorePath)
   ? includeIgnoreFile(gitignorePath, "Project .gitignore patterns")
   : null;
 
+/**
+ * @type {import("eslint").Linter.Config[]}
+ */
 const eslintConfig = [
   ...(gitignore ? [gitignore] : []),
   ...compat.config({
