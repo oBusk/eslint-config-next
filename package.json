@@ -26,6 +26,13 @@
   "volta": {
     "node": "22.19.0"
   },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "22.19.0",
+      "onFail": "download"
+    }
+  },
   "simple-git-hooks": {
     "pre-commit": "npm run lint-staged"
   },
