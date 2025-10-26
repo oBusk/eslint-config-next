@@ -3,3 +3,7 @@
 onlyBuiltDependencies:
   - simple-git-hooks
   - unrs-resolver
+# Do not allow installation of any packages that was published
+# in the last 72 hours (4320 minutes)
+# https://pnpm.io/supply-chain-security
+minimumReleaseAge: 4320
