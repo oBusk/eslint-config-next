@@ -29,6 +29,9 @@ jobs:
       - name: Validate formatting
         run: pnpm run prettier
 
+      - name: Validate types
+        run: pnpm run typecheck
+
       - name: Determine npm dist-tag
         id: dist-tag
         run: |
