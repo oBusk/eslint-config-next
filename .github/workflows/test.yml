@@ -17,7 +17,7 @@ jobs:
       - name: Checkout test repository
         uses: actions/checkout@v5
         with:
-          repository: oBusk/npm-diff.app
+          repository: oBusk/warcraftlogs-search
           path: test
 
       - uses: pnpm/action-setup@v4
@@ -34,11 +34,14 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - working-directory: config
-        run: pnpm link
+        run: pnpm pack
 
       - working-directory: test
-        run: pnpm link @obusk/eslint-config-next
+        run: npm install
+
+      - working-directory: test
+        run: npm install -D ../config/*.tgz
 
       - working-directory: test
         name: Run linting inside test
-        run: pnpm exec next lint
+        run: npm run lint
