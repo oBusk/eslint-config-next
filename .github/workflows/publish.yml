@@ -24,7 +24,7 @@ jobs:
           registry-url: "https://registry.npmjs.org/"
 
       - name: Ensure npm is updated
-        run: pnpm add -g npm@latest
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
