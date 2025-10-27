@@ -46,6 +46,9 @@
     ],
     "index.js": [
       "tsc --noEmit --allowJs"
+    ],
+    "*.ts": [
+      "tsc --noEmit"
     ]
   },
   "scripts": {
