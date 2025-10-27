@@ -31,3 +31,7 @@ How it works:
 - If no `.gitignore` is found, nothing breaks—ESLint just proceeds without extra ignore patterns.
 
 This means you can run `eslint` from a subdirectory (e.g. `packages/api`) and it will still resolve the root `.gitignore` of the repository—mirroring how tools like ESLint/Jest discover project roots.
+
+# License
+
+ISC License © Oscar Busk
