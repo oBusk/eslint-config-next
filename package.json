@@ -39,7 +39,7 @@
   },
   "lint-staged": {
     "**/*.{md,js,json,yaml,yml}": [
-      "prettier --write"
+      "prettier --ignore-path .gitignore --ignore-path .prettierignore --write"
     ],
     "index.js": [
       "tsc --noEmit --allowJs"
@@ -49,8 +49,8 @@
     ]
   },
   "scripts": {
-    "prettier": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --check",
-    "prettier-fix": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --write",
+    "prettier": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --check",
+    "prettier-fix": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --write",
     "lint-staged": "lint-staged",
     "typecheck": "tsc --noEmit"
   },
