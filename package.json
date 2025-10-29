@@ -21,9 +21,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "engines": {
-    "node": "22.X"
-  },
   "devEngines": {
     "runtime": {
       "name": "node",
@@ -41,7 +38,7 @@
     "pre-commit": "pnpm run lint-staged"
   },
   "lint-staged": {
-    "**/*.{md,js,json,yml}": [
+    "**/*.{md,js,json,yaml,yml}": [
       "prettier --write"
     ],
     "index.js": [
@@ -52,8 +49,8 @@
     ]
   },
   "scripts": {
-    "prettier": "prettier **/*.{md,js,json,yml} --ignore-path .gitignore --check",
-    "prettier-fix": "prettier **/*.{md,js,json,yml} --ignore-path .gitignore --write",
+    "prettier": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --check",
+    "prettier-fix": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --write",
     "lint-staged": "lint-staged",
     "typecheck": "tsc --noEmit"
   },
