@@ -1,14 +1,47 @@
-# By default, perform all installs without updating the lockfile
-# https://pnpm.io/cli/install#--frozen-lockfile
-frozenLockfile: true
+# Defines where pnpm looks for packages in the monorepo
+packages: []
 
-# Only allowed certain packages to run their install scripts
-# https://pnpm.io/supply-chain-security
+# The assumption of pnpm is that the root of the workspace is not a package itself,
+# and will warn you everytime you try to add a package to the root. Since our root
+# is a package as well, we need to disable this check.
+# https://pnpm.io/cli/add#--ignore-workspace-root-check
+ignoreWorkspaceRootCheck: true
+
+# Hoist only packages that are known to cause issues if not hoisted.
+# https://pnpm.io/blog/2020/10/17/node-modules-configuration-options-with-pnpm
+# https://pnpm.io/settings#hoistpattern
+hoistPattern: []
+
+# Do not hoist any packages to the root `node_modules` folder. This is needed
+# when we, in our code, want to import something that is not a direct dependency.
+# We should instead add the dependency directly.
+# https://pnpm.io/settings#publichoistpattern
+publicHoistPattern: []
+
+# Only run install scripts from packages that we expect to run.
+# This is to prevent malicious code from running during `pnpm install`.
+# See https://pnpm.io/supply-chain-security
 onlyBuiltDependencies:
-  - simple-git-hooks
-  - unrs-resolver
+  - simple-git-hooks@2.13.1
+  - unrs-resolver@1.11.1
 
-# Do not allow installation of any packages that was published
-# in the last 72 hours (4320 minutes)
-# https://pnpm.io/supply-chain-security
+# Forbid installing any packages that were published less than 72 hours ago.
+# This is to mitigate risks of installing hijacked packages.
+# See https://pnpm.io/supply-chain-security
 minimumReleaseAge: 4320
+
+# Exclude some packages from the minimumReleaseAge check
+# These should be packages we trust to keep their publishing secure
+# https://pnpm.io/settings#minimumreleaseageexclude
+minimumReleaseAgeExclude: []
+
+# Configuration for the `pnpm update` command
+# https://pnpm.io/settings#updateconfig
+updateConfig:
+  # Hide packages that we know we do not want to update
+  ignoreDependencies: []
+
+# Add some old packages we still use to the list to avoid spamming warnings
+# everytime we run `pnpm install` or `pnpm update`.
+# See https://pnpm.io/settings#alloweddeprecatedversions
+allowedDeprecatedVersions: []
