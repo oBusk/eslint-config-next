@@ -66,7 +66,7 @@ This is **@obusk/eslint-config-next** - an NPM package that provides a strict ES
 - Implements custom `.gitignore` file resolution that walks up from process.cwd() to find project root
 - Disables triple-slash reference rule for next-env.d.ts files
 
-**Dependencies**: The package has 12 direct dependencies (all ESLint plugins/configs) and 6 devDependencies. It declares peer dependencies on: eslint ^9.0.0, jest, next >=15.3.0, prettier >=3.0.0, tailwindcss ^3.4.0, typescript ~5.9.0.
+**Dependencies**: The package has 12 direct dependencies (all ESLint plugins/configs) and 7 devDependencies. It declares peer dependencies on: eslint ^9.0.0, jest, next >=15.3.0, prettier >=3.0.0, tailwindcss ^3.4.0, typescript ~5.9.0.
 
 ## Build and Validation Commands
 
