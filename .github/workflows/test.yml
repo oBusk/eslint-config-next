@@ -24,12 +24,6 @@ jobs:
         with:
           package_json_file: ./config/package.json
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: ./config/.nvmrc
-          cache: pnpm
-          cache-dependency-path: "*/pnpm-lock.yaml"
-
       - working-directory: config
         run: pnpm install --frozen-lockfile
 

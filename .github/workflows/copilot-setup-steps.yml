@@ -1,0 +1,11 @@
+name: Checks
+
+on: [push, pull_request]
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oBusk/action-pnpm-setup@v1
