@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+pnpmfileChecksum: sha256-036+U5kSxO7XP6D1xdgV2bCMrmeiJE+U4ppNLoLBtkc=
+
 importers:
 
   .:
@@ -40,7 +42,7 @@ importers:
         version: 61.1.9(eslint@9.38.0(jiti@1.21.7))
       eslint-plugin-prettier:
         specifier: ^5.5.4
-        version: 5.5.4(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@1.21.7)))(eslint@9.38.0(jiti@1.21.7))(prettier@3.6.2)
+        version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@1.21.7)))(eslint@9.38.0(jiti@1.21.7))(prettier@3.6.2)
       eslint-plugin-tailwindcss:
         specifier: ^3.18.2
         version: 3.18.2(tailwindcss@3.4.18(yaml@2.8.1))
@@ -57,6 +59,9 @@ importers:
         specifier: ^3.4.0
         version: 3.4.18(yaml@2.8.1)
     devDependencies:
+      '@types/eslint-plugin-tailwindcss':
+        specifier: ^3.17.0
+        version: 3.17.0(eslint@9.38.0(jiti@1.21.7))
       '@types/node':
         specifier: ^24.9.1
         version: 24.9.1
@@ -698,6 +703,14 @@ packages:
 
   '@types/babel__traverse@7.28.0':
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
+
+  '@types/eslint-plugin-tailwindcss@3.17.0':
+    resolution: {integrity: sha512-ucQGf2YIdTcndYcxRU3UdZgmhUHsOlbIF4BaRtl0op+7k2JmqM2i3aXZ6XIcfZgVq1ZKov7VM5c/BR81ukmkyg==}
+    peerDependencies:
+      eslint: ^9.0.0
+
+  '@types/eslint@9.6.1':
+    resolution: {integrity: sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -3714,6 +3727,16 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.5
 
+  '@types/eslint-plugin-tailwindcss@3.17.0(eslint@9.38.0(jiti@1.21.7))':
+    dependencies:
+      eslint: 9.38.0(jiti@1.21.7)
+
+  '@types/eslint@9.6.1':
+    dependencies:
+      '@types/estree': 1.0.8
+      '@types/json-schema': 7.0.15
+    optional: true
+
   '@types/estree@1.0.8': {}
 
   '@types/istanbul-lib-coverage@2.0.6': {}
@@ -4536,13 +4559,14 @@ snapshots:
       safe-regex-test: 1.1.0
       string.prototype.includes: 2.0.1
 
-  eslint-plugin-prettier@5.5.4(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@1.21.7)))(eslint@9.38.0(jiti@1.21.7))(prettier@3.6.2):
+  eslint-plugin-prettier@5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@1.21.7)))(eslint@9.38.0(jiti@1.21.7))(prettier@3.6.2):
     dependencies:
       eslint: 9.38.0(jiti@1.21.7)
       prettier: 3.6.2
       prettier-linter-helpers: 1.0.0
       synckit: 0.11.11
     optionalDependencies:
+      '@types/eslint': 9.6.1
       eslint-config-prettier: 10.1.8(eslint@9.38.0(jiti@1.21.7))
 
   eslint-plugin-react-hooks@5.2.0(eslint@9.38.0(jiti@1.21.7)):
