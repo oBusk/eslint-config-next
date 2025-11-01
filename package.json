@@ -24,7 +24,7 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "24.11.0",
+      "version": "^24.11.0",
       "onFail": "download"
     },
     "packageManager": {
@@ -55,7 +55,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@eslint/compat": "^1.4.0",
+    "@eslint/compat": "^1.4.1",
     "@eslint/eslintrc": "^3.3.1",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
@@ -63,7 +63,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jest": "^29.0.1",
-    "eslint-plugin-jsdoc": "^61.1.9",
+    "eslint-plugin-jsdoc": "^61.1.10",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-tailwindcss": "^3.18.2",
     "eslint-plugin-testing-library": "^7.13.3"
@@ -78,7 +78,7 @@
   },
   "devDependencies": {
     "@types/eslint-plugin-tailwindcss": "^3.17.0",
-    "@types/node": "^24.9.1",
+    "@types/node": "^24.9.2",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
     "simple-git-hooks": "^2.13.1",
