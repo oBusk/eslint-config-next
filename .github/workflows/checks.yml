@@ -22,3 +22,13 @@ jobs:
 
       - name: Run prettier
         run: pnpm run prettier
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oBusk/action-pnpm-setup@v1
+
+      - name: Run validate
+        run: pnpm run -r print-config

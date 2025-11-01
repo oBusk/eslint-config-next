@@ -49,8 +49,8 @@
     ]
   },
   "scripts": {
-    "prettier": "prettier **/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --check",
-    "prettier-fix": "prettier **/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --write",
+    "prettier": "prettier '**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}' --ignore-path .gitignore --ignore-path .prettierignore --check",
+    "prettier-fix": "prettier '**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}' --ignore-path .gitignore --ignore-path .prettierignore --write",
     "lint-staged": "lint-staged",
     "typecheck": "tsc --noEmit"
   },
@@ -79,6 +79,7 @@
   "devDependencies": {
     "@types/eslint-plugin-tailwindcss": "^3.17.0",
     "@types/node": "^24.9.2",
+    "eslint": "^9.38.0",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
     "simple-git-hooks": "^2.13.1",

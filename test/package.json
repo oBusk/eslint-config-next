@@ -1,0 +1,31 @@
+{
+  "name": "@obusk/eslint-config-next-test",
+  "private": true,
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint",
+    "print-config": "eslint --print-config index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.11.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@10.20.0",
+  "devDependencies": {
+    "@obusk/eslint-config-next": "workspace:*",
+    "jest": "^30.2.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "next": "^16.0.1",
+    "tailwindcss": "^4.1.16"
+  }
+}

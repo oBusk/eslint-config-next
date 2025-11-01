@@ -25,9 +25,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.46.2
         version: 8.46.2(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3)
-      eslint:
-        specifier: ^9.0.0
-        version: 9.38.0(jiti@1.21.7)
       eslint-config-next:
         specifier: ^15.5.2
         version: 15.5.6(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3)
@@ -68,6 +65,9 @@ importers:
       '@types/node':
         specifier: ^24.9.2
         version: 24.9.2
+      eslint:
+        specifier: ^9.38.0
+        version: 9.38.0(jiti@1.21.7)
       lint-staged:
         specifier: ^16.2.6
         version: 16.2.6
@@ -80,6 +80,31 @@ importers:
       simple-git-hooks:
         specifier: ^2.13.1
         version: 2.13.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  test:
+    dependencies:
+      next:
+        specifier: ^16.0.1
+        version: 16.0.1(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      tailwindcss:
+        specifier: ^4.1.16
+        version: 4.1.16
+    devDependencies:
+      '@obusk/eslint-config-next':
+        specifier: workspace:*
+        version: link:..
+      jest:
+        specifier: ^30.2.0
+        version: 30.2.0(@types/node@24.9.2)
+      node:
+        specifier: runtime:^24.11.0
+        version: runtime:24.11.0
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -2865,6 +2890,9 @@ packages:
     resolution: {integrity: sha512-6A2rnmW5xZMdw11LYjhcI5846rt9pbLSabY5XPxo+XWdxwZaFEn47Go4NzFiHu9sNNmr/kXivP1vStfvMaK1GQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
+
+  tailwindcss@4.1.16:
+    resolution: {integrity: sha512-pONL5awpaQX4LN5eiv7moSiSPd/DLDzKVRJz8Q9PgzmAdd1R4307GQS2ZpfiN7ZmekdQrfhZZiSE5jkLR4WNaA==}
 
   test-exclude@6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
@@ -6201,6 +6229,8 @@ snapshots:
     transitivePeerDependencies:
       - tsx
       - yaml
+
+  tailwindcss@4.1.16: {}
 
   test-exclude@6.0.0:
     dependencies:
