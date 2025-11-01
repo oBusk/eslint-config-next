@@ -38,7 +38,7 @@
     "pre-commit": "pnpm run lint-staged"
   },
   "lint-staged": {
-    "**/*.{md,js,json,yaml,yml}": [
+    "**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}": [
       "prettier --ignore-path .gitignore --ignore-path .prettierignore --write"
     ],
     "index.js": [
@@ -49,8 +49,8 @@
     ]
   },
   "scripts": {
-    "prettier": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --check",
-    "prettier-fix": "prettier **/*.{md,js,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --write",
+    "prettier": "prettier **/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --check",
+    "prettier-fix": "prettier **/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml} --ignore-path .gitignore --ignore-path .prettierignore --write",
     "lint-staged": "lint-staged",
     "typecheck": "tsc --noEmit"
   },
