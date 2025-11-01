@@ -1,8 +1,11 @@
 import { includeIgnoreFile } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 import jest from "eslint-plugin-jest";
 import jsdoc from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import reactCompiler from "eslint-plugin-react-compiler";
 import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
 import fs from "node:fs";
@@ -33,14 +36,15 @@ const gitignore = fs.existsSync(gitignorePath)
  */
 const eslintConfig = [
   ...(gitignore ? [gitignore] : []),
+
+  ...nextVitals,
+  ...nextTs,
+
+  reactCompiler.configs.recommended,
+
   ...compat.config({
     root: true,
-    extends: [
-      "next/core-web-vitals",
-      "next/typescript",
-      "plugin:import/recommended",
-      "plugin:import/typescript",
-    ],
+    extends: ["plugin:import/recommended", "plugin:import/typescript"],
     plugins: ["testing-library", "@typescript-eslint/eslint-plugin"],
     rules: {
       "@typescript-eslint/consistent-type-imports": [
