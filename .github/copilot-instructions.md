@@ -7,14 +7,14 @@ This is **@obusk/eslint-config-next** - an NPM package that provides a strict ES
 **Type**: ESM NPM package  
 **Size**: Small repository (~20 files excluding node_modules)  
 **Languages**: JavaScript (ES modules), TypeScript (type definitions)  
-**Runtime**: Node.js v24.11.0 (configured, v20.19.5+ works)  
+**Runtime**: Node.js ^24.11.0 (specified in devEngines, though older versions may work)  
 **Package Manager**: pnpm v10.20.0 (required)
 
 ## Environment Requirements
 
 **ALWAYS use pnpm for all package management operations.** The repository uses:
 
-- Node.js v20.19.5+ (package.json specifies v24.11.0 but v20+ works)
+- Node.js ^24.11.0 (specified in package.json devEngines)
 - pnpm v10.20.0 (specified in `packageManager` field)
 - TypeScript ~5.9.0
 - Git with LF line endings (enforced via .gitattributes)
@@ -27,7 +27,7 @@ This is **@obusk/eslint-config-next** - an NPM package that provides a strict ES
 - `index.d.ts` - TypeScript type definitions
 - `package.json` - Package manifest and scripts
 - `tsconfig.json` - TypeScript configuration for type checking
-- `pnpm-workspace.yaml` - Monorepo configuration (includes test/ subdirectory)
+- `pnpm-workspace.yaml` - Workspace configuration (includes test/ subdirectory)
 - `.pnpmfile.cjs` - Custom pnpm hooks to remove deprecated @types/eslint
 
 ### Configuration Files
@@ -66,7 +66,7 @@ This is **@obusk/eslint-config-next** - an NPM package that provides a strict ES
 - Implements custom `.gitignore` file resolution that walks up from process.cwd() to find project root
 - Disables triple-slash reference rule for next-env.d.ts files
 
-**Dependencies**: The package has 10 direct dependencies (all ESLint plugins/configs) and 6 devDependencies. It declares peer dependencies on: eslint ^9.0.0, jest, next >=15.3.0, prettier >=3.0.0, tailwindcss ^3.4.0, typescript ~5.9.0.
+**Dependencies**: The package has 12 direct dependencies (all ESLint plugins/configs) and 6 devDependencies. It declares peer dependencies on: eslint ^9.0.0, jest, next >=15.3.0, prettier >=3.0.0, tailwindcss ^3.4.0, typescript ~5.9.0.
 
 ## Build and Validation Commands
 
@@ -255,7 +255,7 @@ All use `oBusk/action-pnpm-setup@v1` which automatically installs correct Node.j
 - Only specific packages hoisted for test workspace compatibility
 - Supply chain security enabled:
   - Only whitelisted packages can run install scripts
-  - 72-hour minimum release age for new packages (4320 minutes)
+  - 72-hour minimum release age for new packages
 
 ### Common Pitfalls
 
