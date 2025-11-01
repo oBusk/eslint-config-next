@@ -5,7 +5,6 @@ import nextTs from "eslint-config-next/typescript";
 import jest from "eslint-plugin-jest";
 import jsdoc from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import reactCompiler from "eslint-plugin-react-compiler";
 import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
 import fs from "node:fs";
@@ -39,8 +38,6 @@ const eslintConfig = [
 
   ...nextVitals,
   ...nextTs,
-
-  reactCompiler.configs.recommended,
 
   ...compat.config({
     root: true,
