@@ -9,6 +9,11 @@ overrides:
 
 pnpmfileChecksum: sha256-6iliZlgbBCMwrurDoBvMvr7Yg+1GdTr3X7+LFEsX8iM=
 
+patchedDependencies:
+  eslint-config-next@16.0.1:
+    hash: 51654df38034a8a6d407aff13be8e89e7efc270d2f3f7c3fc87c83fd6afc3518
+    path: patches/eslint-config-next@16.0.1.patch
+
 importers:
 
   .:
@@ -27,7 +32,7 @@ importers:
         version: 8.46.2(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3)
       eslint-config-next:
         specifier: ^16.0.1
-        version: 16.0.1(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3))(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3)
+        version: 16.0.1(patch_hash=51654df38034a8a6d407aff13be8e89e7efc270d2f3f7c3fc87c83fd6afc3518)(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3))(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3)
       eslint-config-prettier:
         specifier: ^10.1.8
         version: 10.1.8(eslint@9.38.0(jiti@1.21.7))
@@ -4465,7 +4470,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@16.0.1(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3))(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3):
+  eslint-config-next@16.0.1(patch_hash=51654df38034a8a6d407aff13be8e89e7efc270d2f3f7c3fc87c83fd6afc3518)(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3))(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3):
     dependencies:
       '@next/eslint-plugin-next': 16.0.1
       eslint: 9.38.0(jiti@1.21.7)
