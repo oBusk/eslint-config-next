@@ -49,3 +49,8 @@ updateConfig:
 # everytime we run `pnpm install` or `pnpm update`.
 # See https://pnpm.io/settings#alloweddeprecatedversions
 allowedDeprecatedVersions: []
+
+# Add patches to specific packages
+# https://pnpm.io/settings#patcheddependencies
+patchedDependencies:
+  eslint-config-next@16.0.1: "patches/eslint-config-next@16.0.1.patch"
