@@ -1,16 +1,15 @@
 import { includeIgnoreFile } from "@eslint/compat";
-import { FlatCompat } from "@eslint/eslintrc";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import importPlugin from "eslint-plugin-import";
 import jest from "eslint-plugin-jest";
-import jsdoc from "eslint-plugin-jsdoc";
+import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
+import { defineConfig } from "eslint/config";
 import fs from "node:fs";
 import path from "node:path";
-
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
 // Find the consumer project's root (nearest directory containing a package.json)
 function findProjectRoot(start = process.cwd()) {
@@ -33,17 +32,16 @@ const gitignore = fs.existsSync(gitignorePath)
 /**
  * @type {import("eslint").Linter.Config[]}
  */
-const eslintConfig = [
+const eslintConfig = defineConfig([
   ...(gitignore ? [gitignore] : []),
 
-  ...nextVitals,
-  ...nextTs,
-
-  ...compat.config({
-    root: true,
-    extends: ["plugin:import/recommended", "plugin:import/typescript"],
-    plugins: ["testing-library", "@typescript-eslint/eslint-plugin"],
+  {
+    name: "oBusk Next.js Typescript + Sorting rules",
+    extends: [nextVitals, nextTs],
     rules: {
+      ...importPlugin.flatConfigs.recommended.rules,
+      ...importPlugin.flatConfigs.typescript.rules,
+
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
@@ -80,12 +78,13 @@ const eslintConfig = [
         { ignoreCase: true, ignoreDeclarationSort: true },
       ],
     },
-  }),
+  },
 
   // Disable triple-slash reference rule for the auto-generated Next.js env file.
   // next-env.d.ts is maintained by Next.js and can contain triple-slash references
   // (e.g. to ./.next/types/routes.d.ts) that are not intended to be rewritten.
   {
+    name: "next-env exceptions",
     files: ["next-env.d.ts", "**/next-env.d.ts"],
     rules: {
       "@typescript-eslint/triple-slash-reference": "off",
@@ -93,20 +92,21 @@ const eslintConfig = [
   },
 
   // Tailwind
-  ...tailwind.configs["flat/recommended"],
   {
+    name: "oBusk Tailwind Config",
+    extends: tailwind.configs["flat/recommended"],
     settings: {
       tailwindcss: { callees: ["clsx", "cx", "cva", "twMerge"] },
     },
   },
 
   // JSDoc
-  jsdoc.configs["flat/recommended-typescript-flavor-error"],
+  jsdoc({
+    config: "flat/recommended-typescript-flavor-error",
+  }),
   {
+    name: "oBusk JSDoc Overrides for TypeScript",
     files: ["**/*.ts?(x)"],
-    plugins: {
-      jsdoc,
-    },
     rules: {
       "jsdoc/require-jsdoc": 0,
       "jsdoc/require-param": 0,
@@ -123,6 +123,6 @@ const eslintConfig = [
 
   // Prettier
   eslintPluginPrettierRecommended,
-];
+]);
 
 export default eslintConfig;
