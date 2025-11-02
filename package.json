@@ -35,17 +35,11 @@
   },
   "packageManager": "pnpm@10.20.0",
   "simple-git-hooks": {
-    "pre-commit": "pnpm run lint-staged"
+    "pre-commit": "pnpm lint-staged && pnpm typecheck && pnpm run -r lint"
   },
   "lint-staged": {
     "**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}": [
       "prettier --ignore-path .gitignore --ignore-path .prettierignore --write"
-    ],
-    "index.js": [
-      "tsc --noEmit --allowJs"
-    ],
-    "*.ts": [
-      "tsc --noEmit"
     ]
   },
   "scripts": {
