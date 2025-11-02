@@ -35,7 +35,7 @@
   },
   "packageManager": "pnpm@10.20.0",
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged && pnpm typecheck"
+    "pre-commit": "pnpm lint-staged && pnpm typecheck && pnpm run -r lint"
   },
   "lint-staged": {
     "**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}": [
