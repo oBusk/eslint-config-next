@@ -24,16 +24,16 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "^24.11.0",
+      "version": "^24.11.1",
       "onFail": "download"
     },
     "packageManager": {
       "name": "pnpm",
-      "version": "10.20.0",
+      "version": "10.24.0",
       "onFail": "download"
     }
   },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.24.0",
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged && pnpm typecheck && pnpm run -r lint"
   },
