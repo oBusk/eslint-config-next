@@ -14,9 +14,3 @@ onlyBuiltDependencies:
 
 ignoredBuiltDependencies:
   - sharp
-
-# Add patches to specific packages
-# https://pnpm.io/settings#patcheddependencies
-patchedDependencies:
-  # Needed until https://github.com/vercel/next.js/issues/85379 is closed
-  eslint-config-next@16.0.1: "patches/eslint-config-next@16.0.1.patch"
