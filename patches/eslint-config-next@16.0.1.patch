@@ -1,0 +1,16 @@
+diff --git a/dist/src/core-web-vitals.d.ts b/dist/core-web-vitals.d.ts
+similarity index 100%
+rename from dist/src/core-web-vitals.d.ts
+rename to dist/core-web-vitals.d.ts
+diff --git a/dist/src/index.d.ts b/dist/index.d.ts
+similarity index 100%
+rename from dist/src/index.d.ts
+rename to dist/index.d.ts
+diff --git a/dist/src/parser.d.ts b/dist/parser.d.ts
+similarity index 100%
+rename from dist/src/parser.d.ts
+rename to dist/parser.d.ts
+diff --git a/dist/src/typescript.d.ts b/dist/typescript.d.ts
+similarity index 100%
+rename from dist/src/typescript.d.ts
+rename to dist/typescript.d.ts
