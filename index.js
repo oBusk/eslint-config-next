@@ -1,14 +1,18 @@
 import { includeIgnoreFile } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
+import importPlugin from "eslint-plugin-import";
 import jest from "eslint-plugin-jest";
-import jsdoc from "eslint-plugin-jsdoc";
+import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
+import { defineConfig } from "eslint/config";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
+const baseDirectory = path.dirname(fileURLToPath(import.meta.url));
+const compat = new FlatCompat({ baseDirectory });
 
 // Find the consumer project's root (nearest directory containing a package.json)
 function findProjectRoot(start = process.cwd()) {
@@ -31,18 +35,15 @@ const gitignore = fs.existsSync(gitignorePath)
 /**
  * @type {import("eslint").Linter.Config[]}
  */
-const eslintConfig = [
+const eslintConfig = defineConfig([
   ...(gitignore ? [gitignore] : []),
   ...compat.config({
     root: true,
-    extends: [
-      "next/core-web-vitals",
-      "next/typescript",
-      "plugin:import/recommended",
-      "plugin:import/typescript",
-    ],
-    plugins: ["testing-library", "@typescript-eslint/eslint-plugin"],
+    extends: ["next/core-web-vitals", "next/typescript"],
     rules: {
+      ...importPlugin.flatConfigs.recommended.rules,
+      ...importPlugin.flatConfigs.typescript.rules,
+
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
@@ -85,6 +86,7 @@ const eslintConfig = [
   // next-env.d.ts is maintained by Next.js and can contain triple-slash references
   // (e.g. to ./.next/types/routes.d.ts) that are not intended to be rewritten.
   {
+    name: "next-env exceptions",
     files: ["next-env.d.ts", "**/next-env.d.ts"],
     rules: {
       "@typescript-eslint/triple-slash-reference": "off",
@@ -92,20 +94,21 @@ const eslintConfig = [
   },
 
   // Tailwind
-  ...tailwind.configs["flat/recommended"],
   {
+    name: "oBusk Tailwind Config",
+    extends: tailwind.configs["flat/recommended"],
     settings: {
       tailwindcss: { callees: ["clsx", "cx", "cva", "twMerge"] },
     },
   },
 
   // JSDoc
-  jsdoc.configs["flat/recommended-typescript-flavor-error"],
+  jsdoc({
+    config: "flat/recommended-typescript-flavor-error",
+  }),
   {
+    name: "oBusk JSDoc Overrides for TypeScript",
     files: ["**/*.ts?(x)"],
-    plugins: {
-      jsdoc,
-    },
     rules: {
       "jsdoc/require-jsdoc": 0,
       "jsdoc/require-param": 0,
@@ -122,6 +125,6 @@ const eslintConfig = [
 
   // Prettier
   eslintPluginPrettierRecommended,
-];
+]);
 
 export default eslintConfig;
