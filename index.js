@@ -36,6 +36,14 @@ const gitignore = fs.existsSync(gitignorePath)
  * @type {import("eslint").Linter.Config[]}
  */
 const eslintConfig = defineConfig([
+  {
+    // Define some guaranteed ignores to avoid unnecessary linting
+    ignores: ["node_modules/**", ".next/**", ".vercel/**", "dist/**", "out/**"],
+  },
+  {
+    // Avoid linting the config file itself to aovoid headaches
+    ignores: ["eslint.config.mjs"],
+  },
   ...(gitignore ? [gitignore] : []),
   ...compat.config({
     root: true,
