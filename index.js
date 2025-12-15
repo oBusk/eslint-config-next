@@ -1,5 +1,6 @@
 import { includeIgnoreFile } from "@eslint/compat";
-import { FlatCompat } from "@eslint/eslintrc";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 import importPlugin from "eslint-plugin-import";
 import jest from "eslint-plugin-jest";
 import { jsdoc } from "eslint-plugin-jsdoc";
@@ -9,10 +10,6 @@ import testingLibrary from "eslint-plugin-testing-library";
 import { defineConfig } from "eslint/config";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const baseDirectory = path.dirname(fileURLToPath(import.meta.url));
-const compat = new FlatCompat({ baseDirectory });
 
 // Find the consumer project's root (nearest directory containing a package.json)
 function findProjectRoot(start = process.cwd()) {
@@ -45,9 +42,10 @@ const eslintConfig = defineConfig([
     ignores: ["eslint.config.mjs"],
   },
   ...(gitignore ? [gitignore] : []),
-  ...compat.config({
-    root: true,
-    extends: ["next/core-web-vitals", "next/typescript"],
+
+  {
+    name: "oBusk Next.js Typescript + Sorting rules",
+    extends: [nextVitals, nextTs],
     rules: {
       ...importPlugin.flatConfigs.recommended.rules,
       ...importPlugin.flatConfigs.typescript.rules,
@@ -88,7 +86,7 @@ const eslintConfig = defineConfig([
         { ignoreCase: true, ignoreDeclarationSort: true },
       ],
     },
-  }),
+  },
 
   // Disable triple-slash reference rule for the auto-generated Next.js env file.
   // next-env.d.ts is maintained by Next.js and can contain triple-slash references
