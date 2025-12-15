@@ -10,12 +10,12 @@ jobs:
       CI: true
     steps:
       - name: Checkout this repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: config
 
       - name: Checkout test repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: oBusk/warcraftlogs-search
           path: test
