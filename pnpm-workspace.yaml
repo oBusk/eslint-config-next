@@ -2,7 +2,7 @@ packages:
   - test
 
 configDependencies:
-  "@obusk/pnpm-plugin-defaults": 0.1.0+sha512-vsCchpE+K6g67YdDYYBCVQQFpfVFuVV423CCBbUEBm7FmWg/MI0Keuhkb6bjWpWaITE1PMSmcsrXbHv9FPFloA==
+  "@obusk/pnpm-plugin-defaults": 0.2.0+sha512-3oufTLQAL1SDdQ9iA5hLRnZjnBnU9uIEOBcwCKRtS+F6NyJphTq6RMIpaZgostZjQRHUaNbGSg6B2gn91drCSQ==
 
 hoistPattern:
   - "@next/eslint-plugin-next"
@@ -11,9 +11,15 @@ hoistPattern:
 ignoredBuiltDependencies:
   - sharp
 
+minimumReleaseAgeExclude:
+  - ts-api-utils@2.4.0
+
 onlyBuiltDependencies:
   - simple-git-hooks@2.13.1
   - unrs-resolver@1.11.1
+
+overrides:
+  "@eslint/core": 0.17.0
 
 trustPolicyExclude:
   - eslint-import-resolver-typescript@3.10.1
