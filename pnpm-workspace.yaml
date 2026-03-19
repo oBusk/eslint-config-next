@@ -14,6 +14,9 @@ allowBuilds:
   unrs-resolver: true
 
 minimumReleaseAgeExclude:
+  - next
+  - "@next/*"
+  - eslint-config-next
 
 trustPolicyExclude:
   - eslint-import-resolver-typescript@3.10.1
