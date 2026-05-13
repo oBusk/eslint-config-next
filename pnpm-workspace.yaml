@@ -2,7 +2,7 @@ packages:
   - test
 
 configDependencies:
-  "@obusk/pnpm-plugin-defaults": 0.3.0+sha512-Vc6B0IfZgB+ydRh0eYpmxV7eCEC5fjDcKX+WrpSd3NiIaFS7yLrXRaWVSoIOLvAYIKbcsYXUa+ZFCf5zVw3nSw==
+  "@obusk/pnpm-plugin-defaults": 0.5.6
 
 hoistPattern:
   - "@next/eslint-plugin-next"
