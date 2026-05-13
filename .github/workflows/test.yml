@@ -23,7 +23,6 @@ jobs:
       - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
         with:
           run_install: true
-          cache: true
           package_json_file: ./config/package.json
 
       - working-directory: config
@@ -33,11 +32,11 @@ jobs:
         run: pnpm pack
 
       - working-directory: test
-        run: npm install
+        run: pnpm install
 
       - working-directory: test
-        run: npm install -D ../config/*.tgz
+        run: pnpm install -D ../config/*.tgz
 
       - working-directory: test
         name: Run linting inside test
-        run: npm run lint
+        run: pnpm run lint
