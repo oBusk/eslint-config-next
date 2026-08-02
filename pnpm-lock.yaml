@@ -6,17 +6,17 @@ importers:
   .:
     configDependencies:
       '@obusk/pnpm-plugin-defaults':
-        specifier: 0.5.6
-        version: 0.5.6
+        specifier: 0.6.2
+        version: 0.6.2
 
 packages:
 
-  '@obusk/pnpm-plugin-defaults@0.5.6':
-    resolution: {integrity: sha512-FqUQbk0ZMRFPaOBam/l1neCdNHzrt9cWcF4RItyQX86dBu90T8JWywrMUDzjKMgZjwI2g3U75J6X4UdiypLWDA==}
+  '@obusk/pnpm-plugin-defaults@0.6.2':
+    resolution: {integrity: sha512-/W5+6DvMUkM95vHpwRoGMl5nsKCQgwypF9F8cIfkVgJ8plHMAVufAin5shqeESyBn/NAm08ZnOTvGwPQ4YtVKw==}
 
 snapshots:
 
-  '@obusk/pnpm-plugin-defaults@0.5.6': {}
+  '@obusk/pnpm-plugin-defaults@0.6.2': {}
 
 ---
 lockfileVersion: '9.0'
@@ -29,7 +29,7 @@ settings:
 overrides:
   postcss@<8.5.10: ^8.5.10
 
-pnpmfileChecksum: sha256-M28iceV0jXdnIBSTu78kdK30t1K3NVCr5On5fl9HGOA=
+pnpmfileChecksum: sha256-ey5JRXwU8JRIVRengAPYxwx2kf5cS4yPF1/xH7j5fHY=
 
 importers:
 
