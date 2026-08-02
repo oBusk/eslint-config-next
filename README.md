@@ -20,6 +20,32 @@ import obuskNext from "@obusk/eslint-config-next";
 export default [...obuskNext];
 ```
 
+### Configuration
+
+To use this preset, add a config object with the following `settings` to your `eslint.config.js`:
+
+```js
+import obuskNext from "@obusk/eslint-config-next";
+
+export default [
+  ...obuskNext,
+  {
+    settings: {
+      react: {
+        version: "19", // The React version used by your project
+      },
+      tailwindcss: {
+        // Path to the file containing your `@import "tailwindcss";`
+        cssConfigPath: "src/app/globals.css",
+      },
+    },
+  },
+];
+```
+
+- **`react.version`** — `eslint-plugin-react` needs to know which React version you're targeting. Without it you'll get a "React version not specified" warning and some rules may misbehave.
+- **`tailwindcss.cssConfigPath`** — `eslint-plugin-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css`, but if your file lives elsewhere you must set it explicitly.
+
 ### Ignored Files
 
 This config automatically respects your project's `.gitignore`.
