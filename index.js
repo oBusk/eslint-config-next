@@ -29,17 +29,6 @@ const gitignore = fs.existsSync(gitignorePath)
   ? includeIgnoreFile(gitignorePath, "Project .gitignore patterns")
   : null;
 
-// eslint-plugin-tailwindcss v4 needs the path to the project's Tailwind CSS
-// entry point (the file with `@import "tailwindcss";`) to resolve the theme.
-const tailwindCssConfigPath = [
-  "app/globals.css",
-  "src/app/globals.css",
-  "styles/globals.css",
-  "src/styles/globals.css",
-]
-  .map((candidate) => path.join(projectRoot, candidate))
-  .find((candidate) => fs.existsSync(candidate));
-
 /**
  * @type {import("eslint").Linter.Config[]}
  */
@@ -117,7 +106,7 @@ const eslintConfig = defineConfig([
     settings: {
       tailwindcss: {
         functions: ["clsx", "cx", "cva", "twMerge"],
-        ...(tailwindCssConfigPath && { cssConfigPath: tailwindCssConfigPath }),
+        parseKeyFunctions: ["clsx", "cx"],
       },
     },
   },
