@@ -8,6 +8,12 @@ const cases = [
     expected: "@typescript-eslint/consistent-type-imports",
   },
   {
+    name: "imports must be ordered",
+    filename: "src/case.ts",
+    code: `import { formatCount } from "./format";\nimport path from "node:path";\nexport const a = [formatCount, path];\n`,
+    expected: "import-x/order",
+  },
+  {
     name: "import members must be sorted",
     filename: "src/case.ts",
     code: `import { formatCount, type BadgeData } from "./format";\nexport const a: BadgeData | null = formatCount ? null : null;\n`,
