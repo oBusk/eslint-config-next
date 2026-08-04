@@ -1,7 +1,8 @@
 import { includeIgnoreFile } from "@eslint/compat";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
-import importPlugin from "eslint-plugin-import";
+import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
+import importPlugin from "eslint-plugin-import-x";
 import jest from "eslint-plugin-jest";
 import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
@@ -53,11 +54,16 @@ const eslintConfig = defineConfig([
 
   {
     name: "oBusk Next.js Typescript + Sorting rules",
-    extends: [nextVitals, nextTs],
+    extends: [
+      nextVitals,
+      nextTs,
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
+    ],
+    settings: {
+      "import-x/resolver-next": [createTypeScriptImportResolver()],
+    },
     rules: {
-      ...importPlugin.flatConfigs.recommended.rules,
-      ...importPlugin.flatConfigs.typescript.rules,
-
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
@@ -71,7 +77,7 @@ const eslintConfig = defineConfig([
         "error",
         { argsIgnorePattern: "^_", ignoreRestSiblings: true },
       ],
-      "import/order": [
+      "import-x/order": [
         "error",
         {
           groups: [
