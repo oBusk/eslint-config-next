@@ -1,4 +1,3 @@
-import { includeIgnoreFile } from "@eslint/compat";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
@@ -8,7 +7,7 @@ import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
-import { defineConfig } from "eslint/config";
+import { defineConfig, includeIgnoreFile } from "eslint/config";
 import fs from "node:fs";
 import path from "node:path";
 
