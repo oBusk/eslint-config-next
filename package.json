@@ -11,7 +11,10 @@
   ],
   "main": "index.js",
   "types": "index.d.ts",
-  "files": [],
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
   "author": "Oscar Busk <oscar.busk@gmail.com>",
   "license": "ISC",
   "repository": {
