@@ -35,7 +35,15 @@ const gitignore = fs.existsSync(gitignorePath)
 const eslintConfig = defineConfig([
   {
     // Define some guaranteed ignores to avoid unnecessary linting
-    ignores: ["node_modules/**", ".next/**", ".vercel/**", "dist/**", "out/**"],
+    ignores: [
+      "**/.next/**",
+      "**/.vercel/**",
+      "**/.turbo/**",
+      "**/.claude/worktrees/**",
+      "dist/**",
+      "out/**",
+      "coverage/**",
+    ],
   },
   {
     // Avoid linting the config file itself to aovoid headaches
