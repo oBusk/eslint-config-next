@@ -10,6 +10,7 @@ import testingLibrary from "eslint-plugin-testing-library";
 import { defineConfig, includeIgnoreFile } from "eslint/config";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 // Find the consumer project's root (nearest directory containing a package.json)
 function findProjectRoot(start = process.cwd()) {
@@ -21,6 +22,10 @@ function findProjectRoot(start = process.cwd()) {
     dir = parent;
   }
 }
+
+const typescriptParserPath = fileURLToPath(
+  import.meta.resolve("@typescript-eslint/parser"),
+);
 
 const projectRoot = findProjectRoot();
 const gitignorePath = path.join(projectRoot, ".gitignore");
@@ -61,6 +66,10 @@ const eslintConfig = defineConfig([
     ],
     settings: {
       "import-x/resolver-next": [createTypeScriptImportResolver()],
+      "import-x/parsers": {
+        "@typescript-eslint/parser": [],
+        [typescriptParserPath]: [".ts", ".tsx", ".cts", ".mts"],
+      },
     },
     rules: {
       "@typescript-eslint/consistent-type-imports": [
