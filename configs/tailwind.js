@@ -4,13 +4,17 @@ import fs from "node:fs";
 import path from "node:path";
 import { projectRoot } from "./project.js";
 
-// Tailwind v4 CSS entry point (the file containing `@import "tailwindcss";`)
+// Tailwind v4 CSS entry point (the file containing `@import "tailwindcss";`).
+// Absolute, since better-tailwindcss resolves relative paths against ESLint's
+// cwd, which isn't the project root when linting from a subdirectory.
 const tailwindEntryPoint = [
   "app/globals.css",
   "src/app/globals.css",
   "styles/globals.css",
   "src/styles/globals.css",
-].find((candidate) => fs.existsSync(path.join(projectRoot, candidate)));
+]
+  .map((candidate) => path.join(projectRoot, candidate))
+  .find((candidate) => fs.existsSync(candidate));
 
 export default defineConfig([
   {

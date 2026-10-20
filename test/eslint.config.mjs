@@ -2,12 +2,7 @@
 import nextObusk from "@obusk/eslint-config-next";
 import { defineConfig } from "eslint/config";
 
-const eslintConfig = defineConfig(nextObusk, {
-  settings: {
-    "better-tailwindcss": {
-      entryPoint: "app/globals.css",
-    },
-  },
-});
+// No extra settings: the fixture relies on the config's auto-detection
+const eslintConfig = defineConfig(nextObusk);
 
 export default eslintConfig;

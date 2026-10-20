@@ -1,4 +1,5 @@
 import { ESLint } from "eslint";
+import path from "node:path";
 
 const cases = [
   {
@@ -58,6 +59,13 @@ const cases = [
   {
     name: "component classes from @layer components are allowed",
     filename: "src/case.tsx",
+    code: `export function C() {\n  return <div className="card flex" />;\n}\n`,
+    unexpected: "better-tailwindcss/no-unknown-classes",
+  },
+  {
+    name: "auto-detected tailwind entry point works when linting from a subdirectory",
+    cwd: "src",
+    filename: "case.tsx",
     code: `export function C() {\n  return <div className="card flex" />;\n}\n`,
     unexpected: "better-tailwindcss/no-unknown-classes",
   },
@@ -123,7 +131,17 @@ const cases = [
   },
 ];
 
-const eslint = new ESLint({ cwd: import.meta.dirname });
+// One ESLint instance per cwd, so cases can lint as if run from a subdirectory
+const eslints = new Map();
+const getESLint = (cwd = ".") => {
+  if (!eslints.has(cwd)) {
+    eslints.set(
+      cwd,
+      new ESLint({ cwd: path.resolve(import.meta.dirname, cwd) }),
+    );
+  }
+  return eslints.get(cwd);
+};
 const failures = [];
 
 // eslint-plugin-react reports a missing/undetectable React version through
@@ -132,8 +150,8 @@ const consoleErrors = [];
 const originalConsoleError = console.error;
 console.error = (...args) => consoleErrors.push(args.join(" "));
 
-for (const { name, filename, code, expected, unexpected } of cases) {
-  const [result] = await eslint.lintText(code, { filePath: filename });
+for (const { name, cwd, filename, code, expected, unexpected } of cases) {
+  const [result] = await getESLint(cwd).lintText(code, { filePath: filename });
   const fired = new Set(result.messages.map((m) => m.ruleId));
 
   if (unexpected) {
