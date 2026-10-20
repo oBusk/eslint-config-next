@@ -1,2 +1,4 @@
 node_modules/
 /*.tgz
+# Checked by test/assert-rules.mjs: parent .gitignore files apply to the fixture
+/test/src/gitignored/

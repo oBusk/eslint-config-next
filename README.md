@@ -40,7 +40,7 @@ export default [
 ];
 ```
 
-- **`better-tailwindcss.entryPoint`** — `eslint-plugin-better-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css`, but if your file lives elsewhere you must set it explicitly.
+- **`better-tailwindcss.entryPoint`** — `eslint-plugin-better-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css` in your project root (see [Ignored Files](#ignored-files) for how that's found), but if your file lives elsewhere you must set it explicitly.
 
 ### Unknown Tailwind classes
 
@@ -61,15 +61,16 @@ Classes you can't move, e.g. from third-party libraries, can be ignored with reg
 
 ### Ignored Files
 
-This config automatically respects your project's `.gitignore`.
+This config automatically respects your project's `.gitignore` files, the way git does.
 
 How it works:
 
 - At load time it walks upward from `process.cwd()` until it finds the nearest `package.json` (your project root).
-- If a `.gitignore` exists in that root, those patterns are fed to ESLint via `includeIgnoreFile`.
-- If no `.gitignore` is found, nothing breaks—ESLint just proceeds without extra ignore patterns.
+- From there it collects every `.gitignore` up to the repository root (the directory containing `.git`), and feeds them to ESLint via `includeIgnoreFile`.
+- Each file's patterns are relative to that file, so `/dist` in the repository root's `.gitignore` only matches the root's `dist`.
+- Outside a git repository, only the project root's own `.gitignore` is used. If there is none, ESLint just proceeds without extra ignore patterns.
 
-This means you can run `eslint` from a subdirectory (e.g. `packages/api`) and it will still resolve the root `.gitignore` of the repository—mirroring how tools like ESLint/Jest discover project roots.
+This means a package in a monorepo (e.g. `packages/api`) gets both its own `.gitignore` and the repository root's. `.gitignore` files in subdirectories below the project root are not applied.
 
 # License
 

@@ -131,6 +131,19 @@ const cases = [
   },
 ];
 
+const ignoreCases = [
+  {
+    name: "patterns from the repository root .gitignore apply, relative to it",
+    path: "src/gitignored/case.ts",
+    ignored: true,
+  },
+  {
+    name: "anchored .gitignore patterns don't match elsewhere",
+    path: "src/case.ts",
+    ignored: false,
+  },
+];
+
 // One ESLint instance per cwd, so cases can lint as if run from a subdirectory
 const eslints = new Map();
 const getESLint = (cwd = ".") => {
@@ -167,6 +180,14 @@ for (const { name, cwd, filename, code, expected, unexpected } of cases) {
   }
 }
 
+for (const { name, path: filePath, ignored } of ignoreCases) {
+  if ((await getESLint().isPathIgnored(filePath)) !== ignored) {
+    failures.push(
+      `${name}\n    expected ${filePath} to ${ignored ? "" : "not "}be ignored`,
+    );
+  }
+}
+
 console.error = originalConsoleError;
 
 const reactVersionWarnings = [
@@ -182,7 +203,7 @@ if (reactVersionWarnings.length > 0) {
 
 if (failures.length > 0) {
   console.error(
-    `${failures.length} of ${cases.length} rule assertions failed:`,
+    `${failures.length} of ${cases.length + ignoreCases.length} rule assertions failed:`,
   );
   for (const failure of failures) {
     console.error(`  - ${failure}`);
@@ -190,4 +211,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`All ${cases.length} rule assertions passed.`);
+console.log(`All ${cases.length + ignoreCases.length} rule assertions passed.`);

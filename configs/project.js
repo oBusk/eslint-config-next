@@ -15,11 +15,22 @@ function findProjectRoot(start = process.cwd()) {
 
 export const projectRoot = findProjectRoot();
 
-const gitignorePath = path.join(projectRoot, ".gitignore");
-// Only include if the consumer project actually has a .gitignore
-const gitignore = fs.existsSync(gitignorePath)
-  ? includeIgnoreFile(gitignorePath, "Project .gitignore patterns")
-  : null;
+// Like git, apply the .gitignore files from the project root up to the
+// repository root, so a package in a monorepo also gets the root's patterns.
+// Without a repository, only the project root's own .gitignore is used.
+function findGitignores() {
+  const gitignores = [];
+  for (let dir = projectRoot; ; dir = path.dirname(dir)) {
+    const gitignorePath = path.join(dir, ".gitignore");
+    if (fs.existsSync(gitignorePath)) gitignores.push(gitignorePath);
+    if (fs.existsSync(path.join(dir, ".git"))) return gitignores;
+    if (path.dirname(dir) === dir) break; // Reached filesystem root
+  }
+  const ownGitignore = path.join(projectRoot, ".gitignore");
+  return fs.existsSync(ownGitignore) ? [ownGitignore] : [];
+}
+
+const gitignores = findGitignores();
 
 export default defineConfig([
   {
@@ -38,5 +49,11 @@ export default defineConfig([
     // Avoid linting the config file itself to avoid headaches
     ignores: ["eslint.config.mjs"],
   },
-  ...(gitignore ? [gitignore] : []),
+  ...(gitignores.length > 0
+    ? includeIgnoreFile(gitignores, {
+        name: "Project .gitignore patterns",
+        // Patterns are relative to their .gitignore, not the ESLint config
+        gitignoreResolution: true,
+      })
+    : []),
 ]);
