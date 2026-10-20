@@ -4,9 +4,7 @@ packages:
 configDependencies:
   "@obusk/pnpm-plugin-defaults": ~12.14.1
 
-hoistPattern:
-  - "@next/eslint-plugin-next"
-  - eslint-plugin-react-hooks
+hoistPattern: []
 
 allowBuilds:
   "@parcel/watcher": true
