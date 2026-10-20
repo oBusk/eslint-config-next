@@ -6,8 +6,8 @@ importers:
   .:
     configDependencies:
       '@obusk/pnpm-plugin-defaults':
-        specifier: ~12.14.0
-        version: 12.14.0
+        specifier: ~12.14.1
+        version: 12.14.1
     packageManagerDependencies:
       pnpm:
         specifier: ^12.14.0
@@ -15,8 +15,8 @@ importers:
 
 packages:
 
-  '@obusk/pnpm-plugin-defaults@12.14.0':
-    resolution: {integrity: sha512-YQmb04gIKViSXfHiu2eMYh6nMp2BOzxe2V4hn43H1DpKVq0MbWVuBp21dBicKNUWYMN19uAxvvFGlGlC+wYDUw==}
+  '@obusk/pnpm-plugin-defaults@12.14.1':
+    resolution: {integrity: sha512-JyqN7lQfiTSTGxGll+EzwL5M7F5s1iyMc4jA/oWjtVHG5JTxq6SW0clMlPDllLVmuHqXvnsZu36VTO3VFO95FA==}
 
   '@pnpm/exe.android-arm64@12.14.0':
     resolution: {integrity: sha512-+iSh7x21C3A2hqc+Z0ZmbKTcn6YNlzrXM142PsnQH/dLj0DYxFzoBvc6XAnL/yfQ5nnH2ebBiRj/zVxr61fZbQ==}
@@ -102,7 +102,7 @@ packages:
 
 snapshots:
 
-  '@obusk/pnpm-plugin-defaults@12.14.0': {}
+  '@obusk/pnpm-plugin-defaults@12.14.1': {}
 
   '@pnpm/exe.android-arm64@12.14.0':
     optional: true
@@ -176,7 +176,7 @@ settings:
   excludeLinksFromLockfile: false
   linkWorkspacePackages: false
 
-pnpmfileChecksum: sha256-XcVh6QzUAuoW/Kdcf7GRZ4AWpkjQlg+Hj/gdstUqWAE=
+pnpmfileChecksum: sha256-K04OnpUrSGLuYAk/Jz0uRGMjxIB5WWg5zX++6g4KE8E=
 
 importers:
 
