@@ -1,6 +1,14 @@
 name: Checks
 
-on: [push, pull_request]
+on:
+  # Other branches are checked through their pull request, so a branch with
+  # a PR isn't checked twice
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   typecheck:
