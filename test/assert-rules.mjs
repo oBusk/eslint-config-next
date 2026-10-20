@@ -32,10 +32,16 @@ const cases = [
     expected: "react/jsx-no-leaked-render",
   },
   {
-    name: "contradicting tailwind classes are rejected",
+    name: "conflicting tailwind classes are rejected",
     filename: "src/case.tsx",
     code: `export function C() {\n  return <div className="p-2 p-4" />;\n}\n`,
-    expected: "tailwindcss/no-contradicting-classname",
+    expected: "better-tailwindcss/no-conflicting-classes",
+  },
+  {
+    name: "unknown tailwind classes are rejected",
+    filename: "src/case.tsx",
+    code: `export function C() {\n  return <div className="not-a-tailwind-class" />;\n}\n`,
+    expected: "better-tailwindcss/no-unknown-classes",
   },
   {
     name: "formatting is enforced through prettier",

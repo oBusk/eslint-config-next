@@ -34,9 +34,9 @@ export default [
       react: {
         version: "19", // The React version used by your project
       },
-      tailwindcss: {
+      "better-tailwindcss": {
         // Path to the file containing your `@import "tailwindcss";`
-        cssConfigPath: "src/app/globals.css",
+        entryPoint: "src/app/globals.css",
       },
     },
   },
@@ -44,7 +44,7 @@ export default [
 ```
 
 - **`react.version`** — `eslint-plugin-react` needs to know which React version you're targeting. Without it you'll get a "React version not specified" warning and some rules may misbehave.
-- **`tailwindcss.cssConfigPath`** — `eslint-plugin-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css`, but if your file lives elsewhere you must set it explicitly.
+- **`better-tailwindcss.entryPoint`** — `eslint-plugin-better-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css`, but if your file lives elsewhere you must set it explicitly.
 
 ### Ignored Files
 

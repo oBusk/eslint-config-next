@@ -62,7 +62,7 @@ This is **@obusk/eslint-config-next** - an NPM package that provides a strict ES
 **Main config (index.js)**:
 
 - Uses ESLint flat config format
-- Combines configs from: next/core-web-vitals, next/typescript, typescript-eslint, import, jest, testing-library, tailwindcss, jsdoc, prettier
+- Combines configs from: next/core-web-vitals, next/typescript, typescript-eslint, import, jest, testing-library, better-tailwindcss, jsdoc, prettier
 - Implements custom `.gitignore` file resolution that walks up from process.cwd() to find project root
 - Disables triple-slash reference rule for next-env.d.ts files
 

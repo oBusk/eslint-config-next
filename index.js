@@ -1,11 +1,11 @@
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
+import betterTailwind from "eslint-plugin-better-tailwindcss";
 import importPlugin from "eslint-plugin-import-x";
 import jest from "eslint-plugin-jest";
 import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import tailwind from "eslint-plugin-tailwindcss";
 import testingLibrary from "eslint-plugin-testing-library";
 import { defineConfig, includeIgnoreFile } from "eslint/config";
 import fs from "node:fs";
@@ -33,6 +33,14 @@ const gitignorePath = path.join(projectRoot, ".gitignore");
 const gitignore = fs.existsSync(gitignorePath)
   ? includeIgnoreFile(gitignorePath, "Project .gitignore patterns")
   : null;
+
+// Tailwind v4 CSS entry point (the file containing `@import "tailwindcss";`)
+const tailwindEntryPoint = [
+  "app/globals.css",
+  "src/app/globals.css",
+  "styles/globals.css",
+  "src/styles/globals.css",
+].find((candidate) => fs.existsSync(path.join(projectRoot, candidate)));
 
 /**
  * @type {import("eslint").Linter.Config[]}
@@ -124,12 +132,15 @@ const eslintConfig = defineConfig([
   // Tailwind
   {
     name: "oBusk Tailwind Config",
-    extends: [/** @type {any} */ (tailwind.configs.recommended)],
+    extends: [betterTailwind.configs.recommended],
     settings: {
-      tailwindcss: {
-        functions: ["clsx", "cx", "cva", "twMerge"],
-        parseKeyFunctions: ["clsx", "cx"],
-      },
+      ...(tailwindEntryPoint && {
+        "better-tailwindcss": { entryPoint: tailwindEntryPoint },
+      }),
+    },
+    rules: {
+      // Line wrapping is left to prettier
+      "better-tailwindcss/enforce-consistent-line-wrapping": "off",
     },
   },
 
