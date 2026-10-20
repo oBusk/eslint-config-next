@@ -171,27 +171,41 @@ const ignoreCases = [
   },
 ];
 
-// createConfig({ root }) must not depend on where ESLint was started, so build
-// it from an unrelated directory, where the guessed root would be wrong
-const originalCwd = process.cwd();
-process.chdir(os.tmpdir());
-const explicitRootConfig = createConfig({ root: import.meta.dirname });
-process.chdir(originalCwd);
+/**
+ * Build the config as if ESLint was started from `dir`.
+ * @param {string} dir The directory to start from
+ * @param {Parameters<typeof createConfig>[0]} [options] Options for createConfig
+ * @returns {ReturnType<typeof createConfig>} The config
+ */
+const createConfigFrom = (dir, options) => {
+  const originalCwd = process.cwd();
+  process.chdir(dir);
+  try {
+    return createConfig(options);
+  } finally {
+    process.chdir(originalCwd);
+  }
+};
 
-// One ESLint instance per cwd, so cases can lint as if run from a subdirectory.
-// Cases with `explicitRoot` use the config above instead of eslint.config.mjs.
+// One ESLint instance per cwd and root option, so cases can lint as if ESLint
+// was started from a subdirectory (`cwd`), or with an explicit root built from
+// an unrelated directory, where the guessed root would be wrong (`explicitRoot`).
 const eslints = new Map();
 const getESLint = ({ cwd = ".", explicitRoot = false } = {}) => {
   const key = `${cwd}|${explicitRoot}`;
   if (!eslints.has(key)) {
+    const dir = path.resolve(import.meta.dirname, cwd);
+    const overrideConfig = explicitRoot
+      ? createConfigFrom(os.tmpdir(), { root: import.meta.dirname })
+      : cwd !== "."
+        ? createConfigFrom(dir)
+        : undefined;
     eslints.set(
       key,
       new ESLint({
-        cwd: path.resolve(import.meta.dirname, cwd),
-        ...(explicitRoot && {
-          overrideConfigFile: true,
-          overrideConfig: explicitRootConfig,
-        }),
+        cwd: dir,
+        // Without an override, ESLint loads test/eslint.config.mjs
+        ...(overrideConfig && { overrideConfigFile: true, overrideConfig }),
       }),
     );
   }

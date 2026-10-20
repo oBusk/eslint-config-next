@@ -53,16 +53,20 @@ function withImportX({ plugins, settings, rules, ...config }) {
  * @param {string} root The project root
  */
 export default function next(root) {
+  // The Next plugin looks for pages/ and app/ relative to ESLint's cwd unless
+  // told otherwise, which breaks when linting from a subdirectory. But it globs
+  // rootDir for every linted file, so only set it when it differs from the cwd.
+  // (realpath, as the glob matches escaped segments case-sensitively)
+  const rootDir = fs.realpathSync.native(root);
+  const needsRootDir = rootDir !== fs.realpathSync.native(process.cwd());
+
   return defineConfig([
     {
       name: "oBusk Next.js + TypeScript",
       extends: [nextVitals.map(withImportX), nextTs],
-      settings: {
-        // The Next plugin looks for pages/ and app/ relative to ESLint's cwd
-        // unless told otherwise, which breaks when linting from a subdirectory
-        // (realpath, as the glob matches escaped segments case-sensitively)
-        next: { rootDir: escapeGlob(fs.realpathSync.native(root)) },
-      },
+      ...(needsRootDir && {
+        settings: { next: { rootDir: escapeGlob(rootDir) } },
+      }),
       rules: {
         "@typescript-eslint/consistent-type-imports": [
           "error",
