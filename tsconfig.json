@@ -11,5 +11,5 @@
     "types": ["node"],
     "strict": true
   },
-  "include": ["index.js", "index.d.ts", "configs"]
+  "include": ["index.js", "index.d.ts", "configs", "scripts"]
 }
