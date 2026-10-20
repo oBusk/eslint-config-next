@@ -20,6 +20,18 @@ import obuskNext from "@obusk/eslint-config-next";
 export default [...obuskNext];
 ```
 
+### Project root
+
+The config needs your project root to find your `.gitignore` files, your Tailwind CSS entry point and your Next.js `app`/`pages` directories. By default it guesses: the nearest directory containing a `package.json`, starting from where ESLint was started.
+
+That guess is wrong when ESLint is started outside the project, typically in a monorepo: a lint-staged hook at the repository root, `npx eslint apps/web` from the root, or an editor opened at the root. To avoid guessing, pass the root explicitly with `createConfig`:
+
+```js
+import { createConfig } from "@obusk/eslint-config-next";
+
+export default createConfig({ root: import.meta.dirname });
+```
+
 ### Configuration
 
 If your Tailwind CSS entry point isn't in one of the auto-detected locations (see below), point the config at it in your `eslint.config.js`:
@@ -40,7 +52,7 @@ export default [
 ];
 ```
 
-- **`better-tailwindcss.entryPoint`** — `eslint-plugin-better-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css` in your project root (see [Ignored Files](#ignored-files) for how that's found), but if your file lives elsewhere you must set it explicitly.
+- **`better-tailwindcss.entryPoint`** — `eslint-plugin-better-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css` in your [project root](#project-root), but if your file lives elsewhere you must set it explicitly.
 
 ### Unknown Tailwind classes
 
@@ -65,8 +77,7 @@ This config automatically respects your project's `.gitignore` files, the way gi
 
 How it works:
 
-- At load time it walks upward from `process.cwd()` until it finds the nearest `package.json` (your project root).
-- From there it collects every `.gitignore` up to the repository root (the directory containing `.git`), and feeds them to ESLint via `includeIgnoreFile`.
+- Starting from your [project root](#project-root), it collects every `.gitignore` up to the repository root (the directory containing `.git`), and feeds them to ESLint via `includeIgnoreFile`.
 - Each file's patterns are relative to that file, so `/dist` in the repository root's `.gitignore` only matches the root's `dist`.
 - Outside a git repository, only the project root's own `.gitignore` is used. If there is none, ESLint just proceeds without extra ignore patterns.
 

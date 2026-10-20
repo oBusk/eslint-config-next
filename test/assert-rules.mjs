@@ -1,4 +1,6 @@
+import { createConfig } from "@obusk/eslint-config-next";
 import { ESLint } from "eslint";
+import os from "node:os";
 import path from "node:path";
 
 const cases = [
@@ -124,6 +126,14 @@ const cases = [
     unexpected: "testing-library/render-result-naming-convention",
   },
   {
+    // Also covers Next's app/ lookup, via the console checks below
+    name: "createConfig({ root }) finds the tailwind entry point from the given root",
+    explicitRoot: true,
+    filename: "src/case.tsx",
+    code: `export function C() {\n  return <div className="card flex" />;\n}\n`,
+    unexpected: "better-tailwindcss/no-unknown-classes",
+  },
+  {
     name: "formatting is enforced through prettier",
     filename: "src/case.ts",
     code: `export const a = {b:1,c:2}\n`,
@@ -142,18 +152,39 @@ const ignoreCases = [
     path: "src/case.ts",
     ignored: false,
   },
+  {
+    name: "createConfig({ root }) finds .gitignore files from the given root",
+    explicitRoot: true,
+    path: "src/gitignored/case.ts",
+    ignored: true,
+  },
 ];
 
-// One ESLint instance per cwd, so cases can lint as if run from a subdirectory
+// createConfig({ root }) must not depend on where ESLint was started, so build
+// it from an unrelated directory, where the guessed root would be wrong
+const originalCwd = process.cwd();
+process.chdir(os.tmpdir());
+const explicitRootConfig = createConfig({ root: import.meta.dirname });
+process.chdir(originalCwd);
+
+// One ESLint instance per cwd, so cases can lint as if run from a subdirectory.
+// Cases with `explicitRoot` use the config above instead of eslint.config.mjs.
 const eslints = new Map();
-const getESLint = (cwd = ".") => {
-  if (!eslints.has(cwd)) {
+const getESLint = ({ cwd = ".", explicitRoot = false } = {}) => {
+  const key = `${cwd}|${explicitRoot}`;
+  if (!eslints.has(key)) {
     eslints.set(
-      cwd,
-      new ESLint({ cwd: path.resolve(import.meta.dirname, cwd) }),
+      key,
+      new ESLint({
+        cwd: path.resolve(import.meta.dirname, cwd),
+        ...(explicitRoot && {
+          overrideConfigFile: true,
+          overrideConfig: explicitRootConfig,
+        }),
+      }),
     );
   }
-  return eslints.get(cwd);
+  return eslints.get(key);
 };
 const failures = [];
 
@@ -168,8 +199,8 @@ for (const method of /** @type {const} */ (["error", "warn"])) {
   };
 }
 
-for (const { name, cwd, filename, code, expected, unexpected } of cases) {
-  const [result] = await getESLint(cwd).lintText(code, { filePath: filename });
+for (const { name, filename, code, expected, unexpected, ...opts } of cases) {
+  const [result] = await getESLint(opts).lintText(code, { filePath: filename });
   const fired = new Set(result.messages.map((m) => m.ruleId));
 
   if (unexpected) {
@@ -185,8 +216,8 @@ for (const { name, cwd, filename, code, expected, unexpected } of cases) {
   }
 }
 
-for (const { name, path: filePath, ignored } of ignoreCases) {
-  if ((await getESLint().isPathIgnored(filePath)) !== ignored) {
+for (const { name, path: filePath, ignored, ...opts } of ignoreCases) {
+  if ((await getESLint(opts).isPathIgnored(filePath)) !== ignored) {
     failures.push(
       `${name}\n    expected ${filePath} to ${ignored ? "" : "not "}be ignored`,
     );
@@ -203,7 +234,7 @@ const consoleCases = [
   },
   {
     // The Next plugin must find app/ from the project root, not ESLint's cwd
-    name: "Next.js app directory should be found when linting from a subdirectory",
+    name: "Next.js app directory should be found from the project root",
     match: "Pages directory cannot be found",
   },
 ];
