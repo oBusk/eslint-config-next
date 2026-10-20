@@ -78,6 +78,12 @@ const cases = [
 const eslint = new ESLint({ cwd: import.meta.dirname });
 const failures = [];
 
+// eslint-plugin-react reports a missing/undetectable React version through
+// console.error. Capture it so the "detect" default keeps working on ESLint 10.
+const consoleErrors = [];
+const originalConsoleError = console.error;
+console.error = (...args) => consoleErrors.push(args.join(" "));
+
 for (const { name, filename, code, expected, unexpected } of cases) {
   const [result] = await eslint.lintText(code, { filePath: filename });
   const fired = new Set(result.messages.map((m) => m.ruleId));
@@ -93,6 +99,19 @@ for (const { name, filename, code, expected, unexpected } of cases) {
         (fatal.length ? `\n    parse errors: ${fatal.join("; ")}` : ""),
     );
   }
+}
+
+console.error = originalConsoleError;
+
+const reactVersionWarnings = [
+  ...new Set(
+    consoleErrors.filter((message) => message.includes("React version")),
+  ),
+];
+if (reactVersionWarnings.length > 0) {
+  failures.push(
+    `React version should be detected without configuration\n    ${reactVersionWarnings.join("\n    ")}`,
+  );
 }
 
 if (failures.length > 0) {

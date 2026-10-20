@@ -4,7 +4,6 @@ import { defineConfig } from "eslint/config";
 
 const eslintConfig = defineConfig(nextObusk, {
   settings: {
-    react: { version: "19" },
     "better-tailwindcss": {
       entryPoint: "app/globals.css",
     },

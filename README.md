@@ -22,7 +22,7 @@ export default [...obuskNext];
 
 ### Configuration
 
-To use this preset, add a config object with the following `settings` to your `eslint.config.js`:
+If your Tailwind CSS entry point isn't in one of the auto-detected locations (see below), point the config at it in your `eslint.config.js`:
 
 ```js
 import obuskNext from "@obusk/eslint-config-next";
@@ -31,9 +31,6 @@ export default [
   ...obuskNext,
   {
     settings: {
-      react: {
-        version: "19", // The React version used by your project
-      },
       "better-tailwindcss": {
         // Path to the file containing your `@import "tailwindcss";`
         entryPoint: "src/app/globals.css",
@@ -43,7 +40,6 @@ export default [
 ];
 ```
 
-- **`react.version`** — `eslint-plugin-react` needs to know which React version you're targeting. Without it you'll get a "React version not specified" warning and some rules may misbehave.
 - **`better-tailwindcss.entryPoint`** — `eslint-plugin-better-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css`, but if your file lives elsewhere you must set it explicitly.
 
 ### Unknown Tailwind classes
