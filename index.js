@@ -23,6 +23,39 @@ function findProjectRoot(start = process.cwd()) {
   }
 }
 
+/**
+ * Replace eslint-plugin-import with eslint-plugin-import-x in a config object.
+ * eslint-plugin-import crashes on ESLint 10. Its rules are renamed to their
+ * import-x equivalent (or dropped if import-x has none), while its settings are
+ * dropped since import-x resolvers are configured separately.
+ * @param {import("eslint").Linter.Config} config
+ * @returns {import("eslint").Linter.Config}
+ */
+function withImportX({ plugins, settings, rules, ...config }) {
+  /** @param {string} key */
+  const isImport = (key) => key === "import" || key.startsWith("import/");
+  /** @param {Record<string, any>} obj */
+  const omitImport = (obj) =>
+    Object.fromEntries(Object.entries(obj).filter(([key]) => !isImport(key)));
+
+  return {
+    ...config,
+    ...(plugins && { plugins: omitImport(plugins) }),
+    ...(settings && { settings: omitImport(settings) }),
+    ...(rules && {
+      rules: Object.fromEntries(
+        Object.entries(rules).flatMap(([key, value]) => {
+          if (!isImport(key)) return [[key, value]];
+          const name = key.slice("import/".length);
+          return importPlugin.rules?.[name]
+            ? [[`import-x/${name}`, value]]
+            : [];
+        }),
+      ),
+    }),
+  };
+}
+
 const typescriptParserPath = fileURLToPath(
   import.meta.resolve("@typescript-eslint/parser"),
 );
@@ -67,7 +100,7 @@ const eslintConfig = defineConfig([
   {
     name: "oBusk Next.js Typescript + Sorting rules",
     extends: [
-      nextVitals,
+      nextVitals.map(withImportX),
       nextTs,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,

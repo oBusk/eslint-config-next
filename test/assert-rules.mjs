@@ -26,6 +26,18 @@ const cases = [
     expected: "@typescript-eslint/no-unused-vars",
   },
   {
+    name: "anonymous default exports are flagged",
+    filename: "src/case.ts",
+    code: `export default { a: 1 };\n`,
+    expected: "import-x/no-anonymous-default-export",
+  },
+  {
+    name: "eslint-plugin-import is not loaded (it crashes on ESLint 10)",
+    filename: "src/case.ts",
+    code: `export default { a: 1 };\n`,
+    unexpected: "import/no-anonymous-default-export",
+  },
+  {
     name: "conditional renders must not leak falsy values",
     filename: "src/case.tsx",
     code: `export function C({ n }: { n: number }) {\n  return <div>{n && <span>x</span>}</div>;\n}\n`,
