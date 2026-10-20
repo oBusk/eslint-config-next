@@ -157,11 +157,16 @@ const getESLint = (cwd = ".") => {
 };
 const failures = [];
 
-// eslint-plugin-react reports a missing/undetectable React version through
-// console.error. Capture it so the "detect" default keeps working on ESLint 10.
-const consoleErrors = [];
-const originalConsoleError = console.error;
-console.error = (...args) => consoleErrors.push(args.join(" "));
+// Some plugins report configuration problems on the console rather than as
+// lint messages. Record it to assert on below, while still printing it.
+const consoleMessages = [];
+const originalConsole = { error: console.error, warn: console.warn };
+for (const method of /** @type {const} */ (["error", "warn"])) {
+  console[method] = (...args) => {
+    consoleMessages.push(args.join(" "));
+    originalConsole[method](...args);
+  };
+}
 
 for (const { name, cwd, filename, code, expected, unexpected } of cases) {
   const [result] = await getESLint(cwd).lintText(code, { filePath: filename });
@@ -188,22 +193,33 @@ for (const { name, path: filePath, ignored } of ignoreCases) {
   }
 }
 
-console.error = originalConsoleError;
+Object.assign(console, originalConsole);
 
-const reactVersionWarnings = [
-  ...new Set(
-    consoleErrors.filter((message) => message.includes("React version")),
-  ),
+const consoleCases = [
+  {
+    // eslint-plugin-react's "detect" default must keep working on ESLint 10
+    name: "React version should be detected without configuration",
+    match: "React version",
+  },
+  {
+    // The Next plugin must find app/ from the project root, not ESLint's cwd
+    name: "Next.js app directory should be found when linting from a subdirectory",
+    match: "Pages directory cannot be found",
+  },
 ];
-if (reactVersionWarnings.length > 0) {
-  failures.push(
-    `React version should be detected without configuration\n    ${reactVersionWarnings.join("\n    ")}`,
-  );
+
+for (const { name, match } of consoleCases) {
+  const warnings = [
+    ...new Set(consoleMessages.filter((message) => message.includes(match))),
+  ];
+  if (warnings.length > 0) {
+    failures.push(`${name}\n    ${warnings.join("\n    ")}`);
+  }
 }
 
 if (failures.length > 0) {
   console.error(
-    `${failures.length} of ${cases.length + ignoreCases.length} rule assertions failed:`,
+    `${failures.length} of ${cases.length + ignoreCases.length + consoleCases.length} rule assertions failed:`,
   );
   for (const failure of failures) {
     console.error(`  - ${failure}`);
@@ -211,4 +227,6 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`All ${cases.length + ignoreCases.length} rule assertions passed.`);
+console.log(
+  `All ${cases.length + ignoreCases.length + consoleCases.length} rule assertions passed.`,
+);

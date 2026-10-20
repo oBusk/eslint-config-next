@@ -2,6 +2,20 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import importPlugin from "eslint-plugin-import-x";
 import { defineConfig } from "eslint/config";
+import fs from "node:fs";
+import { projectRoot } from "./project.js";
+
+/**
+ * Escape a path for use as a glob in `settings.next.rootDir`. The Next plugin
+ * turns backslashes into slashes before globbing, so special characters are
+ * wrapped in a character class instead (`(` -> `[(]`). `!` is left alone,
+ * since `[!]` starts a negated class and `!` is only special before `(`.
+ * @param {string} p
+ * @returns {string}
+ */
+function escapeGlob(p) {
+  return p.replace(/[()[\]{}*?+@,]/g, "[$&]");
+}
 
 /**
  * Replace eslint-plugin-import with eslint-plugin-import-x in a config object.
@@ -40,6 +54,12 @@ export default defineConfig([
   {
     name: "oBusk Next.js + TypeScript",
     extends: [nextVitals.map(withImportX), nextTs],
+    settings: {
+      // The Next plugin looks for pages/ and app/ relative to ESLint's cwd
+      // unless told otherwise, which breaks when linting from a subdirectory
+      // (realpath, as the glob matches escaped segments case-sensitively)
+      next: { rootDir: escapeGlob(fs.realpathSync.native(projectRoot)) },
+    },
     rules: {
       "@typescript-eslint/consistent-type-imports": [
         "error",
