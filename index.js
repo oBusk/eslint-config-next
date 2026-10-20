@@ -134,13 +134,18 @@ const eslintConfig = defineConfig([
     name: "oBusk Tailwind Config",
     extends: [betterTailwind.configs.recommended],
     settings: {
-      ...(tailwindEntryPoint && {
-        "better-tailwindcss": { entryPoint: tailwindEntryPoint },
-      }),
+      "better-tailwindcss": {
+        ...(tailwindEntryPoint && { entryPoint: tailwindEntryPoint }),
+        // Treat classes defined in `@layer components` as known classes
+        detectComponentClasses: true,
+        // Allows canonicalizing px values to the spacing scale, e.g. `w-[16px]` -> `w-4`
+        rootFontSize: 16,
+      },
     },
     rules: {
       // Line wrapping is left to prettier
       "better-tailwindcss/enforce-consistent-line-wrapping": "off",
+      "better-tailwindcss/no-unknown-classes": "error",
     },
   },
 

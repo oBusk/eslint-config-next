@@ -44,6 +44,18 @@ const cases = [
     expected: "better-tailwindcss/no-unknown-classes",
   },
   {
+    name: "component classes from @layer components are allowed",
+    filename: "src/case.tsx",
+    code: `export function C() {\n  return <div className="card flex" />;\n}\n`,
+    unexpected: "better-tailwindcss/no-unknown-classes",
+  },
+  {
+    name: "px arbitrary values are canonicalized to the spacing scale",
+    filename: "src/case.tsx",
+    code: `export function C() {\n  return <div className="w-[16px]" />;\n}\n`,
+    expected: "better-tailwindcss/enforce-canonical-classes",
+  },
+  {
     name: "formatting is enforced through prettier",
     filename: "src/case.ts",
     code: `export const a = {b:1,c:2}\n`,
@@ -54,11 +66,15 @@ const cases = [
 const eslint = new ESLint({ cwd: import.meta.dirname });
 const failures = [];
 
-for (const { name, filename, code, expected } of cases) {
+for (const { name, filename, code, expected, unexpected } of cases) {
   const [result] = await eslint.lintText(code, { filePath: filename });
   const fired = new Set(result.messages.map((m) => m.ruleId));
 
-  if (!fired.has(expected)) {
+  if (unexpected) {
+    if (fired.has(unexpected)) {
+      failures.push(`${name}\n    expected ${unexpected} not to fire`);
+    }
+  } else if (!fired.has(expected)) {
     const fatal = result.messages.filter((m) => m.fatal).map((m) => m.message);
     failures.push(
       `${name}\n    expected ${expected}, got ${[...fired].join(", ") || "no errors"}` +

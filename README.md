@@ -46,6 +46,23 @@ export default [
 - **`react.version`** — `eslint-plugin-react` needs to know which React version you're targeting. Without it you'll get a "React version not specified" warning and some rules may misbehave.
 - **`better-tailwindcss.entryPoint`** — `eslint-plugin-better-tailwindcss` needs the path to your Tailwind CSS entry point to resolve your theme. This config tries to auto-detect it at `app/globals.css`, `src/app/globals.css`, `styles/globals.css`, or `src/styles/globals.css`, but if your file lives elsewhere you must set it explicitly.
 
+### Unknown Tailwind classes
+
+`better-tailwindcss/no-unknown-classes` is an error: every class name must be known to Tailwind. If you need custom classes, either:
+
+- Define them with [`@utility`](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities) (preferred — works with variants, sorting and conflict detection), or
+- Define them inside [`@layer components`](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes) in your entry point (or a file it `@import`s). Note that moving existing unlayered CSS into a layer lets utilities override it.
+
+Classes you can't move, e.g. from third-party libraries, can be ignored with regex patterns:
+
+```js
+{
+  rules: {
+    "better-tailwindcss/no-unknown-classes": ["error", { ignore: ["^rdp-"] }],
+  },
+}
+```
+
 ### Ignored Files
 
 This config automatically respects your project's `.gitignore`.
