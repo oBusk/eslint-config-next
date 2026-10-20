@@ -20,11 +20,28 @@ jobs:
           run_install: true
           cache: true
 
+      - name: Check that the tag matches the package version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$GITHUB_REF_NAME" != "v$VERSION" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json version $VERSION"
+            exit 1
+          fi
+
       - name: Validate formatting
         run: pnpm run prettier
 
       - name: Validate types
         run: pnpm run typecheck
+
+      - name: Lint
+        run: pnpm run -r lint
+
+      - name: Test
+        run: pnpm run -r test
+
+      - name: Lint with the packed package
+        run: pnpm run test:pack
 
       - name: Determine npm dist-tag
         id: dist-tag
