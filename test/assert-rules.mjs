@@ -134,6 +134,12 @@ const cases = [
     unexpected: "better-tailwindcss/no-unknown-classes",
   },
   {
+    name: "CommonJS files can be linted",
+    filename: "postcss.config.cjs",
+    code: `module.exports = { plugins: {} };\n`,
+    unexpected: "react/jsx-no-leaked-render",
+  },
+  {
     name: "formatting is enforced through prettier",
     filename: "src/case.ts",
     code: `export const a = {b:1,c:2}\n`,
@@ -200,7 +206,13 @@ for (const method of /** @type {const} */ (["error", "warn"])) {
 }
 
 for (const { name, filename, code, expected, unexpected, ...opts } of cases) {
-  const [result] = await getESLint(opts).lintText(code, { filePath: filename });
+  let result;
+  try {
+    [result] = await getESLint(opts).lintText(code, { filePath: filename });
+  } catch (error) {
+    failures.push(`${name}\n    ESLint crashed: ${error.message}`);
+    continue;
+  }
   const fired = new Set(result.messages.map((m) => m.ruleId));
 
   if (unexpected) {

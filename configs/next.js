@@ -77,6 +77,14 @@ export default function next(root) {
           "error",
           { argsIgnorePattern: "^_", ignoreRestSiblings: true },
         ],
+      },
+    },
+    {
+      name: "oBusk React",
+      // Next only registers the react plugin for these files (e.g. not .cjs),
+      // and a rule without its plugin makes ESLint crash on the other files
+      files: nextVitals.find((config) => config.plugins?.react)?.files,
+      rules: {
         "react/jsx-no-leaked-render": "error",
       },
     },
