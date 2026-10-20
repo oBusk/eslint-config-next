@@ -55,7 +55,7 @@ export default function project(root) {
     },
     {
       // Avoid linting the config file itself to avoid headaches
-      ignores: ["eslint.config.mjs"],
+      ignores: ["eslint.config.{js,mjs,cjs,ts,mts,cts}"],
     },
     ...(gitignores.length > 0
       ? includeIgnoreFile(gitignores, {

@@ -158,6 +158,11 @@ const ignoreCases = [
     path: "src/case.ts",
     ignored: false,
   },
+  ...["js", "mjs", "cjs", "ts", "mts", "cts"].map((ext) => ({
+    name: `the ESLint config itself is not linted (eslint.config.${ext})`,
+    path: `eslint.config.${ext}`,
+    ignored: true,
+  })),
   {
     name: "createConfig({ root }) finds .gitignore files from the given root",
     explicitRoot: true,
