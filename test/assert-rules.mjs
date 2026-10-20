@@ -68,6 +68,24 @@ const cases = [
     expected: "better-tailwindcss/enforce-canonical-classes",
   },
   {
+    name: "JSDoc in TypeScript must not repeat types",
+    filename: "src/case.ts",
+    code: `/**\n * Doubles.\n *\n * @param {number} x The value\n */\nexport function f(x: number) {\n  return x * 2;\n}\n`,
+    expected: "jsdoc/no-types",
+  },
+  {
+    name: "JSDoc in TypeScript does not require types",
+    filename: "src/case.ts",
+    code: `/**\n * Doubles.\n *\n * @param x The value\n */\nexport function f(x: number) {\n  return x * 2;\n}\n`,
+    unexpected: "jsdoc/require-param-type",
+  },
+  {
+    name: "JSDoc in JavaScript requires types",
+    filename: "src/case.js",
+    code: `/**\n * Doubles.\n *\n * @param x The value\n * @returns {number} The doubled value\n */\nexport function f(x) {\n  return x * 2;\n}\n`,
+    expected: "jsdoc/require-param-type",
+  },
+  {
     name: "formatting is enforced through prettier",
     filename: "src/case.ts",
     code: `export const a = {b:1,c:2}\n`,
