@@ -86,6 +86,36 @@ const cases = [
     expected: "jsdoc/require-param-type",
   },
   {
+    name: "jest rules apply to test files",
+    filename: "src/case.test.ts",
+    code: `it.only("works", () => {\n  expect(1).toBe(1);\n});\n`,
+    expected: "jest/no-focused-tests",
+  },
+  {
+    name: "jest rules apply to __tests__ directories",
+    filename: "src/__tests__/case.ts",
+    code: `it.only("works", () => {\n  expect(1).toBe(1);\n});\n`,
+    expected: "jest/no-focused-tests",
+  },
+  {
+    name: "jest rules do not apply outside tests",
+    filename: "src/case.ts",
+    code: `it.only("works", () => {\n  expect(1).toBe(1);\n});\n`,
+    unexpected: "jest/no-focused-tests",
+  },
+  {
+    name: "testing-library rules apply to test files",
+    filename: "src/case.test.tsx",
+    code: `import { render } from "@testing-library/react";\n\nit("renders", () => {\n  const screen = render(<div />);\n  expect(screen).toBeDefined();\n});\n`,
+    expected: "testing-library/render-result-naming-convention",
+  },
+  {
+    name: "testing-library rules do not apply outside tests",
+    filename: "src/case.tsx",
+    code: `import { render } from "./format";\n\nexport function C() {\n  const screen = render();\n  return <div>{String(screen)}</div>;\n}\n`,
+    unexpected: "testing-library/render-result-naming-convention",
+  },
+  {
     name: "formatting is enforced through prettier",
     filename: "src/case.ts",
     code: `export const a = {b:1,c:2}\n`,
