@@ -8,6 +8,8 @@
 npm install --save-dev @obusk/eslint-config-next
 ```
 
+It expects ESLint 10, Next.js 16.4+, Tailwind CSS 4, TypeScript, Prettier and Jest in your project. See `peerDependencies` in `package.json` for the exact ranges.
+
 ## Usage
 
 ### ESLint Flat Config
@@ -38,14 +40,16 @@ If your Tailwind CSS entry point isn't in one of the auto-detected locations (se
 
 ```js
 import obuskNext from "@obusk/eslint-config-next";
+import path from "node:path";
 
 export default [
   ...obuskNext,
   {
     settings: {
       "better-tailwindcss": {
-        // Path to the file containing your `@import "tailwindcss";`
-        entryPoint: "src/app/globals.css",
+        // Path to the file containing your `@import "tailwindcss";`. Relative
+        // paths resolve against where ESLint was started, so make it absolute.
+        entryPoint: path.join(import.meta.dirname, "src/app/globals.css"),
       },
     },
   },
