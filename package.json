@@ -53,8 +53,8 @@
     ]
   },
   "scripts": {
-    "prettier": "prettier '**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}' --ignore-path .gitignore --ignore-path .prettierignore --check",
-    "prettier-fix": "prettier '**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}' --ignore-path .gitignore --ignore-path .prettierignore --write",
+    "prettier": "prettier \"**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}\" --ignore-path .gitignore --ignore-path .prettierignore --check",
+    "prettier-fix": "prettier \"**/*.{md,js,mjs,cjs,ts,mts,cts,json,yaml,yml}\" --ignore-path .gitignore --ignore-path .prettierignore --write",
     "lint-staged": "lint-staged",
     "typecheck": "tsc --noEmit",
     "test:pack": "node scripts/test-pack.mjs"
