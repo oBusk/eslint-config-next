@@ -134,6 +134,18 @@ const cases = [
     unexpected: "better-tailwindcss/no-unknown-classes",
   },
   {
+    name: "import rules TypeScript already covers are off in TS files",
+    filename: "src/case.ts",
+    code: `import * as format from "./format";\n\nexport const a = format.doesNotExist;\n`,
+    unexpected: "import-x/namespace",
+  },
+  {
+    name: "import rules TypeScript already covers still apply to JS files",
+    filename: "src/case.js",
+    code: `import * as format from "./format";\n\nexport const a = format.doesNotExist;\n`,
+    expected: "import-x/namespace",
+  },
+  {
     name: "CommonJS files can be linted",
     filename: "postcss.config.cjs",
     code: `module.exports = { plugins: {} };\n`,

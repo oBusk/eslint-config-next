@@ -51,4 +51,18 @@ export default defineConfig([
       ],
     },
   },
+  {
+    name: "oBusk Import Rules for TypeScript",
+    files: ["**/*.{ts,tsx,mts,cts}"],
+    // TypeScript already reports what these check, so in TS files they only
+    // cost time (they parse every imported module themselves). See
+    // https://typescript-eslint.io/troubleshooting/typed-linting/performance#eslint-plugin-import
+    rules: {
+      "import-x/named": "off",
+      "import-x/namespace": "off",
+      "import-x/default": "off",
+      "import-x/no-named-as-default-member": "off",
+      "import-x/no-unresolved": "off",
+    },
+  },
 ]);
