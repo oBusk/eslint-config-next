@@ -34,7 +34,7 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "^24.22.3",
+      "version": "^26.13.1",
       "onFail": "download"
     },
     "packageManager": {
@@ -81,7 +81,7 @@
     "typescript": "~6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.6.6",
     "eslint": "^10.15.0",
     "lint-staged": "^17.6.0",
     "prettier": "^3.10.1",
