@@ -39,11 +39,11 @@
     },
     "packageManager": {
       "name": "pnpm",
-      "version": "^12.14.0",
+      "version": "~12.21.0",
       "onFail": "download"
     }
   },
-  "packageManager": "pnpm@12.14.0",
+  "packageManager": "pnpm@12.21.0",
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged && pnpm typecheck && pnpm run -r lint"
   },
